@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>All Teams</title>
+</head>
+<body>
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>League</th>
+        <th>Logo</th>
+    </tr>
+    <tr th:each="team : ${teams}">
+        <td th:text="${team.id}">ID</td>
+        <td th:text="${team.name}">Name</td>
+        <td th:text="${team.league}">League</td>
+        <td>
+            <img th:src="${team.logoUrl}" alt="team logo" width="50" height="50"/>
+        </td>
+    </tr>
+</table>
+<a th:href="@{/newTeam}">New Team</a>
+</body>
+</html>

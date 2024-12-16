@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add new team</title>
+</head>
+<body>
+<form th:action="@{/addTeam}" th:method="post" th:object="${team}">
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name" th:field="*{name}" required>
+    <br>
+    <label for="league">League:</label>
+    <input type="text" id="league" name="league" th:field="*{league}" required>
+    <br>
+    <label for="logoUrl">Logo URL:</label>
+    <input type="text" id="logoUrl" name="logoUrl" th:field="*{logoUrl}" required>
+    <br>
+    <button type="submit">Add</button>
+</form>
+</body>
+</html>
