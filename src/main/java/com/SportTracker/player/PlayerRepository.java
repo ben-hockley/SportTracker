@@ -26,6 +26,13 @@ public class PlayerRepository {
                 .single();
     }
 
+    public List<Player> findByTeamId(Long teamId) {
+        return jdbcClient.sql("SELECT * FROM sport_tracker.player WHERE teamId = :teamId")
+                .param("teamId", teamId)
+                .query(Player.class)
+                .list();
+    }
+
     public void save(Player player) {
         String playerName = player.getName();
         Integer playerNumber = player.getNumber();
