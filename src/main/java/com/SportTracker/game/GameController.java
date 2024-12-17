@@ -5,6 +5,7 @@ import com.SportTracker.team.TeamRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.ArrayList;
@@ -24,7 +25,7 @@ public class GameController {
     public String allGames(Model model) {
 
         List<Game> allGamesInDatabase = gameRepository.findAll();
-        List<GameWithTeams> allGamesWithTeams = new ArrayList<GameWithTeams>();
+        List<GameWithTeams> allGamesWithTeams = new ArrayList<>();
         for (Game game : allGamesInDatabase) {
             Team homeTeam = teamRepository.findById(game.getHomeTeamId().longValue());
             Team awayTeam = teamRepository.findById(game.getAwayTeamId().longValue());
@@ -47,5 +48,16 @@ public class GameController {
     public String addGame(Model model, Game game) {
         gameRepository.save(game);
         return "redirect:/allGames";
+    }
+
+    @GetMapping("/gameDetails/{id}")
+    public String gameDetails(Model model, @PathVariable Long id) {
+        Game game = gameRepository.findById(id);
+        Team homeTeam = teamRepository.findById(game.getHomeTeamId().longValue());
+        Team awayTeam = teamRepository.findById(game.getAwayTeamId().longValue());
+        model.addAttribute("game", game);
+        model.addAttribute("homeTeam", homeTeam);
+        model.addAttribute("awayTeam", awayTeam);
+        return "gameDetails";
     }
 }
