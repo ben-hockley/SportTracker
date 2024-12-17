@@ -19,31 +19,26 @@
     <h1>All Games</h1>
     <a href="/newGame" class="btn btn-success"> + Add New Game </a>
     <div class="row" th:each="game : ${games}">
-        <div class="col-3 border border-dark"> <!-- home team -->
-            <div class="card w-100">
-                <img th:src="${game.homeTeam.logoUrl}" class="card-img-top" alt="Home Team Badge">
-                <div class="card-body">
-                    <h5 class="card-title" th:text="${game.homeTeam.name}"></h5>
-                </div>
-            </div>
+        <div class="col-1 border border-dark"> <!-- home team logo -->
+            <img th:src="${game.homeTeam.logoUrl}" class="w-100" alt="Home Team Badge">
         </div>
-        <div class="col-6 border border-dark container"> <!-- Game Information -->
-            <div class="row">
-                <h2 th:text="${game.date}"></h2>
-            </div>
-            <div class="row">
-                <div class="col-5"><h3 th:text="${game.homeTeamScore}"></h3></div>
-                <div class="col-2"><h3>VS</h3></div>
-                <div class="col-5"><h3 th:text="${game.awayTeamScore}"></h3></div>
-            </div>
+        <div class="col-2"> <!-- home team name -->
+            <a th:href="'/teamDetails/' + ${game.homeTeam.id}"><h2 th:text="${game.homeTeam.name}"></h2></a>
         </div>
-        <div class="col-3 border border-dark"> <!-- away team -->
-            <div class="card w-100">
-                <img th:src="${game.awayTeam.logoUrl}" class="card-img-top" alt="Away Team Badge">
-                <div class="card-body">
-                    <h5 class="card-title" th:text="${game.awayTeam.name}"></h5>
-                </div>
-            </div>
+        <div class="col-1 border border-dark"> <!-- home team score -->
+            <h2 th:text="${game.homeTeamScore}"></h2>
+        </div>
+        <div class="col-4 border border-dark"> <!-- Game Information -->
+            <h2 th:text="${game.date}"></h2>
+        </div>
+        <div class="col-1 border border-dark"> <!-- away team score -->
+            <h2 th:text="${game.awayTeamScore}"></h2>
+        </div>
+        <div class="col-2"> <!-- away team name -->
+            <a th:href="'/teamDetails/' + ${game.awayTeam.id}"><h2 th:text="${game.awayTeam.name}"></h2></a>
+        </div>
+        <div class="col-1 border border-dark"> <!-- away team logo -->
+            <img th:src="${game.awayTeam.logoUrl}" class="w-100" alt="Away Team Badge">
         </div>
     </div>
 </div>
