@@ -38,6 +38,31 @@
         </tr>
         </tbody>
     </table>
+    <h2>Games:</h2>
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">Home Team</th>
+            <th scope="col">Score</th>
+            <th scope="col">Away Team</th>
+            <th scope="col">Date</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="game : ${games}">
+            <td>
+                <a th:text="${game.homeTeam.name}" th:href="'/teamDetails/' + ${game.homeTeam.id}"></a>
+            </td>
+            <td>
+                <a th:text="${game.homeTeamScore} + ' - ' + ${game.awayTeamScore}" th:href="'/gameDetails/' + ${game.id}"></a>
+            </td>
+            <td>
+                <a th:text="${game.awayTeam.name}" th:href="'/teamDetails/' + ${game.awayTeam.id}"></a>
+            </td>
+            <td th:text="${game.date}"></td>
+        </tr>
+        </tbody>
+    </table>
 </div>
 </body>
 </html>

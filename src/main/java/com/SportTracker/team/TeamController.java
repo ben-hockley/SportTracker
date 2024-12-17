@@ -1,5 +1,8 @@
 package com.SportTracker.team;
 
+import com.SportTracker.game.Game;
+import com.SportTracker.game.GameRepository;
+import com.SportTracker.game.GameWithTeams;
 import com.SportTracker.player.Player;
 import com.SportTracker.player.PlayerRepository;
 import org.springframework.stereotype.Controller;
@@ -8,16 +11,19 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
 public class TeamController {
     private final TeamRepository teamRepository;
     private final PlayerRepository playerRepository;
+    private final GameRepository gameRepository;
 
-    public TeamController(TeamRepository teamRepository, PlayerRepository playerRepository) {
+    public TeamController(TeamRepository teamRepository, PlayerRepository playerRepository, GameRepository gameRepository) {
         this.teamRepository = teamRepository;
         this.playerRepository = playerRepository;
+        this.gameRepository = gameRepository;
     }
 
     @GetMapping("/allTeams")
@@ -33,7 +39,7 @@ public class TeamController {
     }
 
     @PostMapping("/addTeam")
-    public String addTeam(Model model,Team team) {
+    public String addTeam(Model model, Team team) {
         teamRepository.save(team);
         return "redirect:/allTeams";
     }
@@ -46,9 +52,20 @@ public class TeamController {
 
         // Get the list of players for the team
         List<Player> players = playerRepository.findByTeamId(id);
+
+        List<Game> gamesInDatabase = gameRepository.findByTeamId(id);
+
+        List<GameWithTeams> allGamesWithTeams = new ArrayList<>();
+        for (Game game : gamesInDatabase) {
+            Team homeTeam = teamRepository.findById(game.getHomeTeamId().longValue());
+            Team awayTeam = teamRepository.findById(game.getAwayTeamId().longValue());
+            allGamesWithTeams.add(new GameWithTeams(game, homeTeam, awayTeam));
+        }
+
+        model.addAttribute("games", allGamesWithTeams);
+
         model.addAttribute("team", team);
         model.addAttribute("players", players);
         return "teamDetails";
     }
-
 }

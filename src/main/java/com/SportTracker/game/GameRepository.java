@@ -27,6 +27,13 @@ public class GameRepository {
                 .single();
     }
 
+    public List<Game> findByTeamId(Long teamId) {
+        return jdbcClient.sql("SELECT * FROM sport_tracker.game WHERE homeTeamId = :teamId OR awayTeamId = :teamId")
+                .param("teamId", teamId)
+                .query(Game.class)
+                .list();
+    }
+
     public void save(Game game) {
 
         Date gameDate = game.getDate();
