@@ -17,3 +17,11 @@ create table if not exists game (
     homeTeamScore int not null,
     awayTeamScore int not null
 );
+
+create table if not exists player (
+    id int auto_increment primary key,
+    name varchar(255) not null,
+    teamId int,
+    position varchar(3) not null,
+    number int
+)
