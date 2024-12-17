@@ -21,7 +21,7 @@
             <div class="card w-100">
                 <img th:src="${homeTeam.logoUrl}" class="card-img-top" alt="Home Team Badge">
                 <div class="card-body">
-                    <h5 class="card-title" th:text="${homeTeam.name}"></h5>
+                    <a th:href="'/teamDetails/' + ${homeTeam.id}"><h5 class="card-title" th:text="${homeTeam.name}"></h5></a>
                 </div>
             </div>
         </div>
@@ -34,16 +34,216 @@
                 <div class="col-2"><h3>VS</h3></div>
                 <div class="col-5"><h3 th:text="${game.awayTeamScore}"></h3></div>
             </div>
+            <div class="row">
+                <table class="table text-center mt-4">
+                    <thead>
+                    <tr>
+                        <th scope="col">Q</th>
+                        <th scope="col">1</th>
+                        <th scope="col">2</th>
+                        <th scope="col">3</th>
+                        <th scope="col">4</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <th scope="row" th:text="${homeTeam.name}"></th>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <th scope="row" th:text="${awayTeam.name}"></th>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
         <div class="col-3 border border-dark"> <!-- away team -->
             <div class="card w-100">
                 <img th:src="${awayTeam.logoUrl}" class="card-img-top" alt="Away Team Badge">
                 <div class="card-body">
-                    <h5 class="card-title" th:text="${awayTeam.name}"></h5>
+                    <a th:href="'/teamDetails/' + ${awayTeam.id}"><h5 class="card-title" th:text="${awayTeam.name}"></h5></a>
                 </div>
             </div>
         </div>
     </div>
+    <!-- Box Score -->
+    <!-- Passing -->
+    <div class="row text-start">
+        <div class="col-6 border border-dark">
+            <h4 th:text="${homeTeam.name} + ' Passing'"></h4>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">PLAYER</th>
+                    <th scope="col">C-A</th>
+                    <th scope="col">YDS</th>
+                    <th scope="col">INT</th>
+                    <th scope="col">CMP%</th>
+                    <th scope="col">RTG</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-6 border border-dark">
+            <h4 th:text="${awayTeam.name} + ' Passing'"></h4>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">PLAYER</th>
+                    <th scope="col">C-A</th>
+                    <th scope="col">YDS</th>
+                    <th scope="col">INT</th>
+                    <th scope="col">CMP%</th>
+                    <th scope="col">RTG</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <!-- Rushing -->
+    <div class="row text-start">
+        <div class="col-6 border border-dark">
+            <h4 th:text="${homeTeam.name} + ' Rushing'"></h4>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">PLAYER</th>
+                    <th scope="col">ATT</th>
+                    <th scope="col">YDS</th>
+                    <th scope="col">TD</th>
+                    <th scope="col">LNG</th>
+                    <th scope="col">AVG</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-6 border border-dark">
+            <h4 th:text="${awayTeam.name} + ' Rushing'"></h4>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">PLAYER</th>
+                    <th scope="col">ATT</th>
+                    <th scope="col">YDS</th>
+                    <th scope="col">TD</th>
+                    <th scope="col">LNG</th>
+                    <th scope="col">AVG</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <!-- Receiving -->
+    <div class="row text-start">
+        <div class="col-6 border border-dark">
+            <h4 th:text="${homeTeam.name} + ' Receiving'"></h4>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">PLAYER</th>
+                    <th scope="col">REC</th>
+                    <th scope="col">YDS</th>
+                    <th scope="col">TD</th>
+                    <th scope="col">LNG</th>
+                    <th scope="col">AVG</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-6 border border-dark">
+            <h4 th:text="${awayTeam.name} + ' Receiving'"></h4>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">PLAYER</th>
+                    <th scope="col">REC</th>
+                    <th scope="col">YDS</th>
+                    <th scope="col">TD</th>
+                    <th scope="col">LNG</th>
+                    <th scope="col">AVG</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
 </div>
 </body>
 </html>
