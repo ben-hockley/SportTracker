@@ -10,8 +10,11 @@
 
     <!-- font-awesome -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.6.0/css/fontawesome.min.css" integrity="sha384-NvKbDTEnL+A8F/AA5Tc5kmMLSJHUO868P+lDtTpJIeQdGYaUIuLr4lVGOEA1OcMy" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="/CSS/mainPage.css">
 </head>
 <body>
+<nav th:replace="fragments/navbar :: navbar"></nav>
 <form th:action="@{/addTeam}" th:method="post" th:object="${team}">
     <label for="name">Name:</label>
     <input type="text" id="name" name="name" th:field="*{name}" required>

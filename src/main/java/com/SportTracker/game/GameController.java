@@ -33,8 +33,6 @@ public class GameController {
 
         model.addAttribute("games", allGamesWithTeams);
 
-
-        //model.addAttribute("games", gameRepository.findAll());
         return "allGames";
     }
 
