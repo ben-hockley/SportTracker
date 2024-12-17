@@ -16,6 +16,4 @@ create table if not exists game (
     awayTeamId int not null,
     homeTeamScore int not null,
     awayTeamScore int not null
-)
-
-create
+);
