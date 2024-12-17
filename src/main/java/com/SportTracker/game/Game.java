@@ -17,8 +17,8 @@ public class Game {
     @Id
     private Long id;
     private Date date;
-    private String homeTeamName;
-    private String awayTeamName;
+    private Integer homeTeamId;
+    private Integer awayTeamId;
     private Integer homeTeamScore;
     private Integer awayTeamScore;
 }

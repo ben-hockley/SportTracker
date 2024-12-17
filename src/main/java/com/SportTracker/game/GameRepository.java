@@ -30,15 +30,15 @@ public class GameRepository {
     public void save(Game game) {
 
         Date gameDate = game.getDate();
-        String homeTeamName = game.getHomeTeamName();
-        String awayTeamName = game.getAwayTeamName();
+        Integer homeTeamId = game.getHomeTeamId();
+        Integer awayTeamId = game.getAwayTeamId();
         Integer homeTeamScore = game.getHomeTeamScore();
         Integer awayTeamScore = game.getAwayTeamScore();
 
-        jdbcClient.sql("INSERT INTO sport_tracker.game (date, homeTeamName, awayTeamName, homeTeamScore, awayTeamScore) VALUES (:date, :homeTeamName, :awayTeamName, :homeTeamScore, :awayTeamScore)")
+        jdbcClient.sql("INSERT INTO sport_tracker.game (date, homeTeamId, awayTeamId, homeTeamScore, awayTeamScore) VALUES (:date, :homeTeamId, :awayTeamId, :homeTeamScore, :awayTeamScore)")
                 .param("date", gameDate)
-                .param("homeTeamName", homeTeamName)
-                .param("awayTeamName", awayTeamName)
+                .param("homeTeamId", homeTeamId)
+                .param("awayTeamId", awayTeamId)
                 .param("homeTeamScore", homeTeamScore)
                 .param("awayTeamScore", awayTeamScore)
                 .update();

@@ -12,8 +12,8 @@ create table if not exists team (
 create table if not exists game (
     id int auto_increment primary key,
     date date not null,
-    homeTeamName varchar(255) not null,
-    awayTeamName varchar(255) not null,
+    homeTeamId int not null,
+    awayTeamId int not null,
     homeTeamScore int not null,
     awayTeamScore int not null
 )

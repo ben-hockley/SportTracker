@@ -26,8 +26,8 @@ public class GameController {
         List<Game> allGamesInDatabase = gameRepository.findAll();
         List<GameWithTeams> allGamesWithTeams = new ArrayList<GameWithTeams>();
         for (Game game : allGamesInDatabase) {
-            Team homeTeam = teamRepository.findByName(game.getHomeTeamName());
-            Team awayTeam = teamRepository.findByName(game.getAwayTeamName());
+            Team homeTeam = teamRepository.findById(game.getHomeTeamId().longValue());
+            Team awayTeam = teamRepository.findById(game.getAwayTeamId().longValue());
             allGamesWithTeams.add(new GameWithTeams(game, homeTeam, awayTeam));
         }
 
