@@ -17,3 +17,5 @@ create table if not exists game (
     homeTeamScore int not null,
     awayTeamScore int not null
 )
+
+create
