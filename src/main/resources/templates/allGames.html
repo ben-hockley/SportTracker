@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>All Games</title>
+</head>
+<body>
+<table>
+    <tr>
+        <th>Game ID</th>
+        <th>Home Team</th>
+        <th>Home Team Score</th>
+        <th>Away Team</th>
+        <th>Away Team Score</th>
+        <th>Date</th>
+    </tr>
+    <tr th:each="game : ${games}">
+        <td th:text="${game.id}"></td>
+        <td th:text="${game.getHomeTeamName()}"></td>
+        <td th:text="${game.homeTeamScore}"></td>
+        <td th:text="${game.getAwayTeamName()}"></td>
+        <td th:text="${game.awayTeamScore}"></td>
+        <td th:text="${game.date}"></td>
+</table>
+</body>
+</html>

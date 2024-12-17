@@ -26,6 +26,13 @@ public class TeamRepository {
                 .single();
     }
 
+    public Team findByName(String name) {
+        return jdbcClient.sql("SELECT * FROM sport_tracker.team WHERE name = :name")
+                .param("name", name)
+                .query(Team.class)
+                .single();
+    }
+
     public void save(Team team) {
 
         String teamName = team.getName();

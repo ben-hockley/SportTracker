@@ -24,6 +24,7 @@ public class TeamController {
         model.addAttribute("team", new Team());
         return "newTeam";
     }
+
     @PostMapping("/addTeam")
     public String addTeam(Model model,Team team) {
         teamRepository.save(team);
