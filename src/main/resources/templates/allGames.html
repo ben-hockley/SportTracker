@@ -18,29 +18,30 @@
 <div class="container text-center">
     <h1>All Games</h1>
     <a href="/newGame" class="btn btn-success"> + Add New Game </a>
-    <div class="row" th:each="game : ${games}">
-        <div class="col-1 border border-dark"> <!-- home team logo -->
-            <img th:src="${game.homeTeam.logoUrl}" class="w-100" alt="Home Team Badge">
-        </div>
-        <div class="col-2"> <!-- home team name -->
-            <a th:href="'/teamDetails/' + ${game.homeTeam.id}"><h2 th:text="${game.homeTeam.name}"></h2></a>
-        </div>
-        <div class="col-1 border border-dark"> <!-- home team score -->
-            <h2 th:text="${game.homeTeamScore}"></h2>
-        </div>
-        <div class="col-4 border border-dark"> <!-- Game Information -->
-            <h2 th:text="${game.date}"></h2>
-        </div>
-        <div class="col-1 border border-dark"> <!-- away team score -->
-            <h2 th:text="${game.awayTeamScore}"></h2>
-        </div>
-        <div class="col-2"> <!-- away team name -->
-            <a th:href="'/teamDetails/' + ${game.awayTeam.id}"><h2 th:text="${game.awayTeam.name}"></h2></a>
-        </div>
-        <div class="col-1 border border-dark"> <!-- away team logo -->
-            <img th:src="${game.awayTeam.logoUrl}" class="w-100" alt="Away Team Badge">
-        </div>
-    </div>
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">Home Team</th>
+            <th scope="col">Score</th>
+            <th scope="col">Away Team</th>
+            <th scope="col">Date</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="game : ${games}">
+            <td>
+                <a th:text="${game.homeTeam.name}" th:href="'/teamDetails/' + ${game.homeTeam.id}"></a>
+            </td>
+            <td>
+                <a th:text="${game.homeTeamScore} + ' - ' + ${game.awayTeamScore}" th:href="'/gameDetails/' + ${game.id}"></a>
+            </td>
+            <td>
+                <a th:text="${game.awayTeam.name}" th:href="'/teamDetails/' + ${game.awayTeam.id}"></a>
+            </td>
+            <td th:text="${game.date}"></td>
+        </tr>
+        </tbody>
+    </table>
 </div>
 </body>
 </html>
