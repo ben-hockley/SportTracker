@@ -31,7 +31,9 @@
         <tbody>
         <tr th:each="player : ${players}">
             <th scope="row" th:text="${player.number}"></th>
-            <td th:text="${player.name}"></td>
+            <td>
+                <a th:href="'/playerDetails/' + ${player.id}" th:text="${player.name}">Details</a>
+            </td>
             <td th:text="${player.position}"></td>
         </tr>
         </tbody>

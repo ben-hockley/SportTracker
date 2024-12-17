@@ -7,6 +7,7 @@ import com.SportTracker.team.TeamRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.ArrayList;
@@ -47,6 +48,18 @@ public class PlayerController {
     public String addPlayer(Model model, Player player) {
         playerRepository.save(player);
         return "redirect:/allPlayers";
+    }
+
+    @GetMapping("/playerDetails/{id}")
+    public String playerDetails(Model model, @PathVariable Long id) {
+        // Get the player by id
+        Player player = playerRepository.findById(id);
+
+        // Get the team for the player
+        Team team = teamRepository.findById(player.getTeamId());
+        model.addAttribute("player", player);
+        model.addAttribute("team", team);
+        return "playerDetails";
     }
 
 }
