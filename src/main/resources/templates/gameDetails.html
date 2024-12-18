@@ -48,17 +48,17 @@
                     <tbody>
                     <tr>
                         <th scope="row" th:text="${homeTeam.name}"></th>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        <td th:text="${game.homeTeamScoreQ1}"></td>
+                        <td th:text="${game.homeTeamScoreQ2}"></td>
+                        <td th:text="${game.homeTeamScoreQ3}"></td>
+                        <td th:text="${game.homeTeamScoreQ4}"></td>
                     </tr>
                     <tr>
                         <th scope="row" th:text="${awayTeam.name}"></th>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        <td th:text="${game.awayTeamScoreQ1}"></td>
+                        <td th:text="${game.awayTeamScoreQ2}"></td>
+                        <td th:text="${game.awayTeamScoreQ3}"></td>
+                        <td th:text="${game.awayTeamScoreQ4}"></td>
                     </tr>
                     </tbody>
                 </table>

@@ -15,7 +15,15 @@ create table if not exists game (
     homeTeamId int not null,
     awayTeamId int not null,
     homeTeamScore int not null,
-    awayTeamScore int not null
+    awayTeamScore int not null,
+    homeTeamScoreQ1 int,
+    homeTeamScoreQ2 int,
+    homeTeamScoreQ3 int,
+    homeTeamScoreQ4 int,
+    awayTeamScoreQ1 int,
+    awayTeamScoreQ2 int,
+    awayTeamScoreQ3 int,
+    awayTeamScoreQ4 int
 );
 
 create table if not exists player (

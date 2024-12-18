@@ -18,25 +18,54 @@
 <div class="container text-center">
     <h1>Add New Game</h1>
     <form th:method="post" th:action="@{/addGame}" th:object="${game}">
+        <h2>Required fields</h2><br>
         <label for="homeTeam">Home Team:</label>
-        <select id="homeTeam" name="homeTeam" th:field="*{homeTeamId}">
+        <select id="homeTeam" name="homeTeam" th:field="*{homeTeamId}" required>
             <option th:each="team : ${teams}" th:value="${team.id}" th:text="${team.name}"></option>
         </select>
         <br>
         <label for="homeTeamScore">Home Team Score:</label>
-        <input type="number" id="homeTeamScore" name="homeTeamScore" th:field="*{homeTeamScore}">
+        <input type="number" id="homeTeamScore" name="homeTeamScore" th:field="*{homeTeamScore}" required>
         <br>
         <label for="awayTeam">Away Team:</label>
-        <select id="awayTeam" name="awayTeam" th:field="*{awayTeamId}">
+        <select id="awayTeam" name="awayTeam" th:field="*{awayTeamId}" required>
             <option th:each="team : ${teams}" th:value="${team.id}" th:text="${team.name}"></option>
         </select>
         <br>
         <label for="awayTeamScore">Away Team Score:</label>
-        <input type="number" id="awayTeamScore" name="awayTeamScore" th:field="*{awayTeamScore}">
+        <input type="number" id="awayTeamScore" name="awayTeamScore" th:field="*{awayTeamScore}" required>
         <br>
         <label for="date">Date:</label>
-        <input type="date" id="date" name="date" th:field="*{date}">
+        <input type="date" id="date" name="date" th:field="*{date}" required>
         <br>
+        <h2>Optional Fields</h2>
+        <table class="m-auto">
+            <thead>
+            <tr>
+                <th scope="col">Q</th>
+                <th scope="col">1</th>
+                <th scope="col">2</th>
+                <th scope="col">3</th>
+                <th scope="col">4</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <th scope="row">Home</th>
+                <td><input type="number" id="homeTeamScoreQ1" name="homeTeamScoreQ1" th:field="*{homeTeamScoreQ1}"></td>
+                <td><input type="number" id="homeTeamScoreQ2" name="homeTeamScoreQ2" th:field="*{homeTeamScoreQ2}"></td>
+                <td><input type="number" id="homeTeamScoreQ3" name="homeTeamScoreQ3" th:field="*{homeTeamScoreQ3}"></td>
+                <td><input type="number" id="homeTeamScoreQ4" name="homeTeamScoreQ4" th:field="*{homeTeamScoreQ4}"></td>
+            </tr>
+            <tr>
+                <th scope="row">Away</th>
+                <td><input type="number" id="awayTeamScoreQ1" name="awayTeamScoreQ1" th:field="*{awayTeamScoreQ1}"></td>
+                <td><input type="number" id="awayTeamScoreQ2" name="awayTeamScoreQ2" th:field="*{awayTeamScoreQ2}"></td>
+                <td><input type="number" id="awayTeamScoreQ3" name="awayTeamScoreQ3" th:field="*{awayTeamScoreQ3}"></td>
+                <td><input type="number" id="awayTeamScoreQ4" name="awayTeamScoreQ4" th:field="*{awayTeamScoreQ4}"></td>
+            </tr>
+            </tbody>
+        </table>
         <input type="submit" value="Add Game">
     </form>
 </div>
