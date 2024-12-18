@@ -20,19 +20,19 @@
     <form th:method="post" th:action="@{/addGame}" th:object="${game}">
         <h2>Required fields</h2><br>
         <label for="homeTeam">Home Team:</label>
-        <select id="homeTeam" name="homeTeam" th:field="*{homeTeamId}" required>
+        <select id="homeTeam" name="homeTeam" th:field="*{homeTeamId}" onchange="setSelectedHomeTeam()" required>
             <option th:each="team : ${teams}" th:value="${team.id}" th:text="${team.name}"></option>
         </select>
         <br>
-        <label for="homeTeamScore">Home Team Score:</label>
+        <label for="homeTeamScore" id="homeTeamScoreLabel">Home Team Score:</label>
         <input type="number" id="homeTeamScore" name="homeTeamScore" th:field="*{homeTeamScore}" onchange="fixHomeScore()" required>
         <br>
         <label for="awayTeam">Away Team:</label>
-        <select id="awayTeam" name="awayTeam" th:field="*{awayTeamId}" required>
+        <select id="awayTeam" name="awayTeam" th:field="*{awayTeamId}" onchange="setSelectedAwayTeam()" required>
             <option th:each="team : ${teams}" th:value="${team.id}" th:text="${team.name}"></option>
         </select>
         <br>
-        <label for="awayTeamScore">Away Team Score:</label>
+        <label for="awayTeamScore" id="awayTeamScoreLabel">Away Team Score:</label>
         <input type="number" id="awayTeamScore" name="awayTeamScore" th:field="*{awayTeamScore}" onchange="fixAwayScore()" required>
         <br>
         <label for="date">Date:</label>
@@ -51,14 +51,14 @@
             </thead>
             <tbody>
             <tr>
-                <th scope="row">Home</th>
+                <th scope="row" id="homeTeamName">Home</th>
                 <td><input type="number" id="homeTeamScoreQ1" name="homeTeamScoreQ1" th:field="*{homeTeamScoreQ1}" onchange="fixHomeScore()"></td>
                 <td><input type="number" id="homeTeamScoreQ2" name="homeTeamScoreQ2" th:field="*{homeTeamScoreQ2}" onchange="fixHomeScore()"></td>
                 <td><input type="number" id="homeTeamScoreQ3" name="homeTeamScoreQ3" th:field="*{homeTeamScoreQ3}" onchange="fixHomeScore()"></td>
                 <td><input type="number" id="homeTeamScoreQ4" name="homeTeamScoreQ4" th:field="*{homeTeamScoreQ4}" onchange="fixHomeScore()"></td>
             </tr>
             <tr>
-                <th scope="row">Away</th>
+                <th scope="row" id="awayTeamName">Away</th>
                 <td><input type="number" id="awayTeamScoreQ1" name="awayTeamScoreQ1" th:field="*{awayTeamScoreQ1}" onchange="fixAwayScore()"></td>
                 <td><input type="number" id="awayTeamScoreQ2" name="awayTeamScoreQ2" th:field="*{awayTeamScoreQ2}" onchange="fixAwayScore()"></td>
                 <td><input type="number" id="awayTeamScoreQ3" name="awayTeamScoreQ3" th:field="*{awayTeamScoreQ3}" onchange="fixAwayScore()"></td>

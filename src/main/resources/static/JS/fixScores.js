@@ -27,3 +27,17 @@ function fixAwayScore() {
         document.getElementById("awayTeamScore").value = totalScore;
     }
 }
+
+selectedHomeTeam = document.getElementById("homeTeam").options[document.getElementById("homeTeam").selectedIndex].innerHTML;
+selectedAwayTeam = document.getElementById("awayTeam").options[document.getElementById("awayTeam").selectedIndex].innerHTML;
+
+function setSelectedHomeTeam() {
+    let homeTeamName =  document.getElementById("homeTeam").options[document.getElementById("homeTeam").selectedIndex].innerHTML;
+    document.getElementById("homeTeamName").innerHTML = homeTeamName;
+    document.getElementById("homeTeamScoreLabel").innerHTML = homeTeamName + " Score";
+}
+function setSelectedAwayTeam() {
+    let awayTeamName = document.getElementById("awayTeam").options[document.getElementById("awayTeam").selectedIndex].innerHTML;
+    document.getElementById("awayTeamName").innerHTML = awayTeamName;
+    document.getElementById("awayTeamScoreLabel").innerHTML = awayTeamName + " Score";
+}
