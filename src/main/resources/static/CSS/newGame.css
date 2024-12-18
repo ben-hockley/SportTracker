@@ -1,0 +1,10 @@
+#addPlayerStatsForm {
+    display: none;
+    width : 75%;
+    position: fixed;
+    top: 100px;
+    z-index: 1; /* Sit on top */
+    background: black;
+    color:white;
+    margin:auto;
+}

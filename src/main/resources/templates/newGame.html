@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.6.0/css/fontawesome.min.css" integrity="sha384-NvKbDTEnL+A8F/AA5Tc5kmMLSJHUO868P+lDtTpJIeQdGYaUIuLr4lVGOEA1OcMy" crossorigin="anonymous">
 
     <link rel="stylesheet" href="/CSS/mainPage.css">
+    <link rel="stylesheet" href="/CSS/newGame.css">
 </head>
 <body>
 <nav th:replace="fragments/navbar :: navbar"></nav>
@@ -38,7 +39,7 @@
         <label for="date">Date:</label>
         <input type="date" id="date" name="date" th:field="*{date}" required>
         <br>
-        <h2>Optional Fields</h2>
+        <h2>Scorecard (Optional)</h2>
         <table class="m-auto">
             <thead>
             <tr>
@@ -66,7 +67,182 @@
             </tr>
             </tbody>
         </table>
-        <input type="submit" value="Add Game">
+        <h2>Box Score (Optional)</h2>
+        <button class="btn btn-success" type="button" onclick="showAddPlayerStatsForm()">Add Player Stats</button>
+
+        <!-- Start of add Player Stats modal form, does not affect the layout of the page -->
+
+        <div id="addPlayerStatsForm">
+            <label for="statType">Stat Type</label>
+            <select id="statType" name="statType" onchange="updateStatInputFields()">
+                <option value="Passing">Passing</option>
+                <option value="Rushing">Rushing</option>
+                <option value="Receiving">Receiving</option>
+            </select>
+            <br><br>
+            <label for="homeOrAway">Home or Away</label>
+            <select id="homeOrAway" name="homeOrAway">
+                <option value="Home">Home</option>
+                <option value="Away">Away</option>
+            </select>
+            <br><br>
+            <label for="player">Player</label>
+            <select id="player" name="player">
+                <option th:each="player : ${players}" th:value="${player.id}" th:text="${player.name}" th:class="${player.number}"></option>
+            </select>
+            <br><br>
+            <table class="m-auto">
+                <thead>
+                <tr>
+                    <th><label for="playerStat1" id="playerStat1Label">C-A</label></th>
+                    <th><label for="playerStat2" id="playerStat2Label">YDS</label></th>
+                    <th><label for="playerStat3" id="playerStat3Label">TDS</label></th>
+                    <th><label for="playerStat4" id="playerStat4Label">INT</label></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td><input type="text" id="playerStat1" name="playerStat1"></td>
+                    <td><input type="number" id="playerStat2" name="playerStat2"></td>
+                    <td><input type="number" id="playerStat3" name="playerStat3"></td>
+                    <td><input type="number" id="playerStat4" name="playerStat4"></td>
+                </tr>
+                </tbody>
+            </table>
+            <br><br>
+            <button type="button" class="btn btn-primary" onclick="addStatToForm()">Submit</button>
+            <br><br>
+        </div>
+        <!-- End of modal form -->
+
+        <div class="container">
+            <div class="row text-start">
+                <div class="col-6 border border-dark">
+                    <h4>Home Passing</h4>
+                    <input type="text" placeholder="this input will be hidden" id="homePassing">
+                    <table class="table" id="homePassingTable">
+                        <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">PLAYER</th>
+                            <th scope="col">C-A</th>
+                            <th scope="col">YDS</th>
+                            <th scope="col">TDS</th>
+                            <th scope="col">INT</th>
+                            <th scope="col">CMP%</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-6 border border-dark">
+                    <h4>Away Passing</h4>
+                    <input type="text" placeholder="this input will be hidden" id="awayPassing">
+                    <table class="table" id="awayPassingTable">
+                        <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">PLAYER</th>
+                            <th scope="col">C-A</th>
+                            <th scope="col">YDS</th>
+                            <th scope="col">TDS</th>
+                            <th scope="col">INT</th>
+                            <th scope="col">CMP%</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="row text-start">
+                <div class="col-6 border border-dark">
+                    <h4>Home Rushing</h4>
+                    <input type="text" placeholder="this input will be hidden" id="homeRushing">
+                    <table class="table" id="homeRushingTable">
+                        <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">PLAYER</th>
+                            <th scope="col">ATT</th>
+                            <th scope="col">YDS</th>
+                            <th scope="col">TDS</th>
+                            <th scope="col">LNG</th>
+                            <th scope="col">AVG</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-6 border border-dark">
+                    <h4>Away Rushing</h4>
+                    <input type="text" placeholder="this input will be hidden" id="awayRushing">
+                    <table class="table" id="awayRushingTable">
+                        <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">PLAYER</th>
+                            <th scope="col">ATT</th>
+                            <th scope="col">YDS</th>
+                            <th scope="col">TDS</th>
+                            <th scope="col">LNG</th>
+                            <th scope="col">AVG</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="row text-start">
+                <div class="col-6 border border-dark">
+                    <h4>Home Receiving</h4>
+                    <input type="text" placeholder="this input will be hidden" id="homeReceiving">
+                    <table class="table" id="homeReceivingTable">
+                        <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">PLAYER</th>
+                            <th scope="col">REC</th>
+                            <th scope="col">YDS</th>
+                            <th scope="col">TDS</th>
+                            <th scope="col">LNG</th>
+                            <th scope="col">AVG</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-6 border border-dark">
+                    <h4>Away Receiving</h4>
+                    <input type="text" placeholder="this input will be hidden" id="awayReceiving">
+                    <table class="table" id="awayReceivingTable">
+                        <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">PLAYER</th>
+                            <th scope="col">REC</th>
+                            <th scope="col">YDS</th>
+                            <th scope="col">TDS</th>
+                            <th scope="col">LNG</th>
+                            <th scope="col">AVG</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <input type="submit" class="btn btn-primary" value="Add Game">
     </form>
 </div>
 
