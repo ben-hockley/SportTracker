@@ -111,6 +111,7 @@
             </table>
             <br><br>
             <button type="button" class="btn btn-primary" onclick="addStatToForm()">Submit</button>
+            <button type="button" class="btn btn-secondary" onclick="cancelForm()">Cancel</button>
             <br><br>
         </div>
         <!-- End of modal form -->
@@ -119,7 +120,7 @@
             <div class="row text-start">
                 <div class="col-6 border border-dark">
                     <h4>Home Passing</h4>
-                    <input type="text" placeholder="this input will be hidden" id="homePassing">
+                    <input type="text" placeholder="this input will be hidden" id="homePassing" th:field="*{homePassing}">
                     <table class="table" id="homePassingTable">
                         <thead>
                         <tr>
@@ -139,7 +140,7 @@
                 </div>
                 <div class="col-6 border border-dark">
                     <h4>Away Passing</h4>
-                    <input type="text" placeholder="this input will be hidden" id="awayPassing">
+                    <input type="text" placeholder="this input will be hidden" id="awayPassing" th:field="*{awayPassing}">
                     <table class="table" id="awayPassingTable">
                         <thead>
                         <tr>
@@ -161,7 +162,7 @@
             <div class="row text-start">
                 <div class="col-6 border border-dark">
                     <h4>Home Rushing</h4>
-                    <input type="text" placeholder="this input will be hidden" id="homeRushing">
+                    <input type="text" placeholder="this input will be hidden" id="homeRushing" th:field="*{homeRushing}">
                     <table class="table" id="homeRushingTable">
                         <thead>
                         <tr>
@@ -181,7 +182,7 @@
                 </div>
                 <div class="col-6 border border-dark">
                     <h4>Away Rushing</h4>
-                    <input type="text" placeholder="this input will be hidden" id="awayRushing">
+                    <input type="text" placeholder="this input will be hidden" id="awayRushing" th:field="*{awayRushing}">
                     <table class="table" id="awayRushingTable">
                         <thead>
                         <tr>
@@ -203,7 +204,7 @@
             <div class="row text-start">
                 <div class="col-6 border border-dark">
                     <h4>Home Receiving</h4>
-                    <input type="text" placeholder="this input will be hidden" id="homeReceiving">
+                    <input type="text" placeholder="this input will be hidden" id="homeReceiving" th:field="*{homeReceiving}">
                     <table class="table" id="homeReceivingTable">
                         <thead>
                         <tr>
@@ -223,7 +224,7 @@
                 </div>
                 <div class="col-6 border border-dark">
                     <h4>Away Receiving</h4>
-                    <input type="text" placeholder="this input will be hidden" id="awayReceiving">
+                    <input type="text" placeholder="this input will be hidden" id="awayReceiving" th:field="*{awayReceiving}">
                     <table class="table" id="awayReceivingTable">
                         <thead>
                         <tr>

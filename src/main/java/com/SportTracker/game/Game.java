@@ -33,4 +33,11 @@ public class Game {
     private Integer awayTeamScoreQ2;
     private Integer awayTeamScoreQ3;
     private Integer awayTeamScoreQ4;
+
+    private String homePassing;
+    private String awayPassing;
+    private String homeRushing;
+    private String awayRushing;
+    private String homeReceiving;
+    private String awayReceiving;
 }

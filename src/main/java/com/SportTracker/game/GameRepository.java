@@ -53,8 +53,15 @@ public class GameRepository {
         Integer awayTeamScoreQ3 = game.getAwayTeamScoreQ3();
         Integer awayTeamScoreQ4 = game.getAwayTeamScoreQ4();
 
+        String homePassing = game.getHomePassing();
+        String awayPassing = game.getAwayPassing();
+        String homeRushing = game.getHomeRushing();
+        String awayRushing = game.getAwayRushing();
+        String homeReceiving = game.getHomeReceiving();
+        String awayReceiving = game.getAwayReceiving();
+
         jdbcClient.sql(
-                "INSERT INTO sport_tracker.game (date,homeTeamId, awayTeamId, homeTeamScore, awayTeamScore, homeTeamScoreQ1, homeTeamScoreQ2, homeTeamScoreQ3, homeTeamScoreQ4, awayTeamScoreQ1, awayTeamScoreQ2, awayTeamScoreQ3, awayTeamScoreQ4) VALUES (:date, :homeTeamId, :awayTeamId, :homeTeamScore, :awayTeamScore, :homeTeamScoreQ1, :homeTeamScoreQ2, :homeTeamScoreQ3, :homeTeamScoreQ4, :awayTeamScoreQ1, :awayTeamScoreQ2, :awayTeamScoreQ3, :awayTeamScoreQ4)")
+                "INSERT INTO sport_tracker.game (date,homeTeamId, awayTeamId, homeTeamScore, awayTeamScore, homeTeamScoreQ1, homeTeamScoreQ2, homeTeamScoreQ3, homeTeamScoreQ4, awayTeamScoreQ1, awayTeamScoreQ2, awayTeamScoreQ3, awayTeamScoreQ4, homePassing, awayPassing, homeRushing, awayRushing, homeReceiving, awayReceiving) VALUES (:date, :homeTeamId, :awayTeamId, :homeTeamScore, :awayTeamScore, :homeTeamScoreQ1, :homeTeamScoreQ2, :homeTeamScoreQ3, :homeTeamScoreQ4, :awayTeamScoreQ1, :awayTeamScoreQ2, :awayTeamScoreQ3, :awayTeamScoreQ4, :homePassing, :awayPassing, :homeRushing, :awayRushing, :homeReceiving, :awayReceiving)")
                 .param("date", gameDate)
                 .param("homeTeamId", homeTeamId)
                 .param("awayTeamId", awayTeamId)
@@ -68,6 +75,12 @@ public class GameRepository {
                 .param("awayTeamScoreQ2", awayTeamScoreQ2)
                 .param("awayTeamScoreQ3", awayTeamScoreQ3)
                 .param("awayTeamScoreQ4", awayTeamScoreQ4)
+                .param("homePassing", homePassing)
+                .param("awayPassing", awayPassing)
+                .param("homeRushing", homeRushing)
+                .param("awayRushing", awayRushing)
+                .param("homeReceiving", homeReceiving)
+                .param("awayReceiving", awayReceiving)
 
                 .update();
     }

@@ -23,7 +23,13 @@ create table if not exists game (
     awayTeamScoreQ1 int,
     awayTeamScoreQ2 int,
     awayTeamScoreQ3 int,
-    awayTeamScoreQ4 int
+    awayTeamScoreQ4 int,
+    homePassing text,
+    awayPassing text,
+    homeRushing text,
+    awayRushing text,
+    homeReceiving text,
+    awayReceiving text
 );
 
 create table if not exists player (

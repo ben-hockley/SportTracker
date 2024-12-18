@@ -140,3 +140,7 @@ function addStatToForm() {
     document.getElementById("playerStat3").value = "";
     document.getElementById("playerStat4").value = "";
 }
+
+function cancelForm() {
+    document.getElementById("addPlayerStatsForm").style.display = "none";
+}

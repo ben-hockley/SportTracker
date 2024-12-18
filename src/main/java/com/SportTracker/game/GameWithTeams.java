@@ -30,6 +30,13 @@ public class GameWithTeams {
     private Integer awayTeamScoreQ3;
     private Integer awayTeamScoreQ4;
 
+    private String homePassing;
+    private String awayPassing;
+    private String homeRushing;
+    private String awayRushing;
+    private String homeReceiving;
+    private String awayReceiving;
+
     public GameWithTeams(Game gameToConvert, Team homeTeam, Team awayTeam) {
         this.Id = gameToConvert.getId();
 
@@ -47,5 +54,12 @@ public class GameWithTeams {
         this.awayTeamScoreQ2 = gameToConvert.getAwayTeamScoreQ2();
         this.awayTeamScoreQ3 = gameToConvert.getAwayTeamScoreQ3();
         this.awayTeamScoreQ4 = gameToConvert.getAwayTeamScoreQ4();
+
+        this.homePassing = gameToConvert.getHomePassing();
+        this.awayPassing = gameToConvert.getAwayPassing();
+        this.homeRushing = gameToConvert.getHomeRushing();
+        this.awayRushing = gameToConvert.getAwayRushing();
+        this.homeReceiving = gameToConvert.getHomeReceiving();
+        this.awayReceiving = gameToConvert.getAwayReceiving();
     }
 }
