@@ -39,12 +39,12 @@ function displayStats(rawData, table) {
         let cell5 = row.insertCell(4);
         let cell6 = row.insertCell(5);
 
-        cell1.innerHTML = stats[i][0]; //player number
-        cell2.innerHTML = stats[i][1]; //player name
-        cell3.innerHTML = stats[i][2]; //C-A or ATT or REC
-        cell4.innerHTML = stats[i][3]; //YDS
-        cell5.innerHTML = stats[i][4]; //TD
-        cell6.innerHTML = stats[i][5]; //INT or LNG
+        cell1.innerHTML = stats[i][1]; //player number
+        cell2.innerHTML = `<a href="/playerDetails/${stats[i][0]}">${stats[i][2]}</a>`;                      //player name
+        cell3.innerHTML = stats[i][3]; //C-A or ATT or REC
+        cell4.innerHTML = stats[i][4]; //YDS
+        cell5.innerHTML = stats[i][5]; //TD
+        cell6.innerHTML = stats[i][6]; //INT or LNG
     }
 }
 
