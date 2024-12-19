@@ -55,6 +55,7 @@ function updateStatInputFields() {
 
     if (statType == "Passing") {
         document.getElementById("playerStat1").type = "text";
+        document.getElementById("playerStat1").setAttribute('pattern', '[0-9-]{5}')
         document.getElementById("playerStat1Label").innerHTML = "C-A";
         document.getElementById("playerStat2Label").innerHTML = "YDS";
         document.getElementById("playerStat3Label").innerHTML = "TDS";
