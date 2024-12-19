@@ -27,6 +27,9 @@ function processData(rawData) {
 function displayStats(rawData, table) {
     let stats = processData(rawData)
 
+    //sort by highest yards first
+    stats.sort(function(a, b){return b[3] - a[3]});
+
     for (let i=0; i<stats.length; i++){
         let row = table.insertRow(-1);
         let cell1 = row.insertCell(0);
@@ -36,12 +39,12 @@ function displayStats(rawData, table) {
         let cell5 = row.insertCell(4);
         let cell6 = row.insertCell(5);
 
-        cell1.innerHTML = stats[i][0];
-        cell2.innerHTML = stats[i][1];
-        cell3.innerHTML = stats[i][2];
-        cell4.innerHTML = stats[i][3];
-        cell5.innerHTML = stats[i][4];
-        cell6.innerHTML = stats[i][5];
+        cell1.innerHTML = stats[i][0]; //player number
+        cell2.innerHTML = stats[i][1]; //player name
+        cell3.innerHTML = stats[i][2]; //C-A or ATT or REC
+        cell4.innerHTML = stats[i][3]; //YDS
+        cell5.innerHTML = stats[i][4]; //TD
+        cell6.innerHTML = stats[i][5]; //INT or LNG
     }
 }
 
