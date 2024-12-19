@@ -6,3 +6,13 @@ input {
     margin-top: 10px;
     margin-bottom: 10px;
 }
+
+.win {
+    background-color: lightgreen;
+}
+.draw {
+    background-color: lightgray;
+}
+.loss {
+    background-color: lightcoral;
+}

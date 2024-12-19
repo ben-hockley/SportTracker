@@ -43,6 +43,7 @@
                         <th scope="col">2</th>
                         <th scope="col">3</th>
                         <th scope="col">4</th>
+                        <th scope="col"></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -52,6 +53,7 @@
                         <td th:text="${game.homeTeamScoreQ2}"></td>
                         <td th:text="${game.homeTeamScoreQ3}"></td>
                         <td th:text="${game.homeTeamScoreQ4}"></td>
+                        <td th:text="${game.homeTeamScore}" class="border border-dark"></td>
                     </tr>
                     <tr>
                         <th scope="row" th:text="${awayTeam.name}"></th>
@@ -59,6 +61,7 @@
                         <td th:text="${game.awayTeamScoreQ2}"></td>
                         <td th:text="${game.awayTeamScoreQ3}"></td>
                         <td th:text="${game.awayTeamScoreQ4}"></td>
+                        <td th:text="${game.awayTeamScore}" class="border border-dark"></td>
                     </tr>
                     </tbody>
                 </table>
