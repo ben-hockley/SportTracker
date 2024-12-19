@@ -13,7 +13,7 @@
 
     <link rel="stylesheet" href="/CSS/mainPage.css">
 </head>
-<body>
+<body onload="loadBoxScore()">
 <nav th:replace="fragments/navbar :: navbar"></nav>
 <div class="container text-center">
     <div class="row">
@@ -78,55 +78,39 @@
     <div class="row text-start">
         <div class="col-6 border border-dark">
             <h4 th:text="${homeTeam.name} + ' Passing'"></h4>
-            <table class="table">
+            <p class="d-none" th:text="${game.homePassing}" id="homePassing"></p>
+            <table class="table" id="homePassingTable">
                 <thead>
                 <tr>
                     <th scope="col">#</th>
                     <th scope="col">PLAYER</th>
                     <th scope="col">C-A</th>
                     <th scope="col">YDS</th>
+                    <th scope="col">TD</th>
                     <th scope="col">INT</th>
                     <th scope="col">CMP%</th>
-                    <th scope="col">RTG</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
                 </tbody>
             </table>
         </div>
         <div class="col-6 border border-dark">
             <h4 th:text="${awayTeam.name} + ' Passing'"></h4>
-            <table class="table">
+            <p class="d-none" th:text="${game.awayPassing}" id="awayPassing"></p>
+            <table class="table" id="awayPassingTable">
                 <thead>
                 <tr>
                     <th scope="col">#</th>
                     <th scope="col">PLAYER</th>
                     <th scope="col">C-A</th>
                     <th scope="col">YDS</th>
+                    <th scope="col">TD</th>
                     <th scope="col">INT</th>
                     <th scope="col">CMP%</th>
-                    <th scope="col">RTG</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
                 </tbody>
             </table>
         </div>
@@ -135,7 +119,8 @@
     <div class="row text-start">
         <div class="col-6 border border-dark">
             <h4 th:text="${homeTeam.name} + ' Rushing'"></h4>
-            <table class="table">
+            <p class="d-none" th:text="${game.homeRushing}" id="homeRushing"></p>
+            <table class="table" id="homeRushingTable">
                 <thead>
                 <tr>
                     <th scope="col">#</th>
@@ -148,21 +133,13 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
                 </tbody>
             </table>
         </div>
         <div class="col-6 border border-dark">
             <h4 th:text="${awayTeam.name} + ' Rushing'"></h4>
-            <table class="table">
+            <p class="d-none" th:text="${game.awayRushing}" id="awayRushing"></p>
+            <table class="table" id="awayRushingTable">
                 <thead>
                 <tr>
                     <th scope="col">#</th>
@@ -175,15 +152,6 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
                 </tbody>
             </table>
         </div>
@@ -192,7 +160,8 @@
     <div class="row text-start">
         <div class="col-6 border border-dark">
             <h4 th:text="${homeTeam.name} + ' Receiving'"></h4>
-            <table class="table">
+            <p class="d-none" th:text="${game.homeReceiving}" id="homeReceiving"></p>
+            <table class="table" id="homeReceivingTable">
                 <thead>
                 <tr>
                     <th scope="col">#</th>
@@ -205,21 +174,13 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
                 </tbody>
             </table>
         </div>
         <div class="col-6 border border-dark">
             <h4 th:text="${awayTeam.name} + ' Receiving'"></h4>
-            <table class="table">
+            <p class="d-none" th:text="${game.awayReceiving}" id="awayReceiving"></p>
+            <table class="table" id="awayReceivingTable">
                 <thead>
                 <tr>
                     <th scope="col">#</th>
@@ -232,19 +193,11 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
                 </tbody>
             </table>
         </div>
     </div>
 </div>
+<script src="/JS/gameDetails.js"></script>
 </body>
 </html>

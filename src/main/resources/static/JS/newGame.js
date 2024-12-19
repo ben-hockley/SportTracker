@@ -107,7 +107,6 @@ function addStatToForm() {
         }
     }
 
-    let playerId = document.getElementById("player").value;
     let playerNumber = document.getElementById("player").options[document.getElementById("player").selectedIndex].className;
     let playerName = document.getElementById("player").options[document.getElementById("player").selectedIndex].innerHTML;
 
@@ -132,7 +131,7 @@ function addStatToForm() {
     cell5.innerHTML = playerStat3;
     cell6.innerHTML = playerStat4;
 
-    let hiddenString = playerId + "," + playerStat1 + "," + playerStat2 + "," + playerStat3 + "," + playerStat4 + ";";
+    let hiddenString = playerNumber + "," + playerName + "," + playerStat1 + "," + playerStat2 + "," + playerStat3 + "," + playerStat4 + ";";
     document.getElementById(hiddenInputName).value += hiddenString;
 
     document.getElementById("playerStat1").value = "";

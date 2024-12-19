@@ -62,6 +62,7 @@ public class GameController {
         model.addAttribute("game", game);
         model.addAttribute("homeTeam", homeTeam);
         model.addAttribute("awayTeam", awayTeam);
+        model.addAttribute("players", playerRepository.findAll());
         return "gameDetails";
     }
 }
