@@ -33,6 +33,7 @@ public class PlayerController {
         }
 
         model.addAttribute("players", allPlayersWithTeam);
+        model.addAttribute("teams", teamRepository.findAll());
 
         return "allPlayers";
     }

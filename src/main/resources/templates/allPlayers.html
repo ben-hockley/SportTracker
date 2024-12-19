@@ -16,9 +16,27 @@
 <body>
 <nav th:replace="fragments/navbar :: navbar"></nav>
 <div class="container text-center">
-    <h1>All Players</h1>
-    <a href="/newPlayer" class="btn btn-primary"> + Add New Player </a>
-    <table class="table">
+    <div class="row">
+        <h1>All Players</h1>
+    </div>
+    <div class="row">
+        <div class="col-3">
+            <!-- Filter by team -->
+            <label for="team">Filter by Team:</label>
+            <select id="team" name="team" onchange="filterByTeam()">
+                <option value="All">All Teams</option>
+                <option th:each="team : ${teams}" th:value="${team.name}" th:text="${team.name}"></option>
+            </select>
+        </div>
+        <div class="col-3"></div>
+        <div class="col-3"></div>
+        <div class="col-3">
+            <a href="/newPlayer" class="btn btn-primary"> + Add New Player </a>
+        </div>
+    </div>
+</div>
+<div class="container text-center">
+    <table class="table" id="playerTable">
         <thead>
         <tr>
             <th scope="col">ID</th>
@@ -43,5 +61,6 @@
         </tbody>
     </table>
 </div>
+<script src="/JS/allPlayers.js"></script>
 </body>
 </html>
