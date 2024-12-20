@@ -1,8 +1,12 @@
 #addPlayerStatsForm {
     display: none;
-    width : 75%;
+    width : 60%;
+    height: 60%;
+    padding: 20px;
+    left: 20%;
+    top: 20%;
+    box-sizing: border-box;
     position: fixed;
-    top: 100px;
     z-index: 1; /* Sit on top */
     background: black;
     color:white;

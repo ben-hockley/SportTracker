@@ -194,18 +194,15 @@
                 <option value="Rushing">Rushing</option>
                 <option value="Receiving">Receiving</option>
             </select>
-            <br><br>
             <label for="homeOrAway" class="form-label">Home or Away</label>
-            <select id="homeOrAway" name="homeOrAway" class="form-select">
+            <select id="homeOrAway" name="homeOrAway" class="form-select" onchange="filterPlayers()">
                 <option value="Home">Home</option>
                 <option value="Away">Away</option>
             </select>
-            <br><br>
             <label for="player" class="form-label">Player</label>
-            <select id="player" name="player" class="form-select">
-                <option th:each="player : ${players}" th:value="${player.id}" th:text="${player.name}" th:class="${player.number}"></option>
+            <select id="player" name="player" class="form-select" onchange="filterPlayers()">
+                <option th:each="player : ${players}" th:value="${player.id}" th:text="${player.name}" th:class="${player.number}" th:name="${player.teamId}"></option>
             </select>
-            <br><br>
             <table class="m-auto">
                 <thead>
                 <tr>
@@ -217,17 +214,16 @@
                 </thead>
                 <tbody>
                 <tr>
-                    <td><input type="text" id="playerStat1" name="playerStat1" pattern="[0-9-]{5}"></td><!-- Only allow numbers and -, and a maximum of 5 characters-->
-                    <td><input type="number" id="playerStat2" name="playerStat2"></td>
-                    <td><input type="number" id="playerStat3" name="playerStat3"></td>
-                    <td><input type="number" id="playerStat4" name="playerStat4"></td>
+                    <td><input type="text" class="form-control" id="playerStat1" name="playerStat1" pattern="[0-9-]{5}"></td><!-- Only allow numbers and -, and a maximum of 5 characters-->
+                    <td><input type="number" class="form-control" id="playerStat2" name="playerStat2"></td>
+                    <td><input type="number" class="form-control" id="playerStat3" name="playerStat3"></td>
+                    <td><input type="number" class="form-control" id="playerStat4" name="playerStat4"></td>
                 </tr>
                 </tbody>
             </table>
-            <br><br>
+            <br>
             <button type="button" class="btn btn-primary" onclick="addStatToForm()">Submit</button>
             <button type="button" class="btn btn-secondary" onclick="cancelForm()">Cancel</button>
-            <br><br>
         </div>
         <!-- End of modal form -->
         </div>

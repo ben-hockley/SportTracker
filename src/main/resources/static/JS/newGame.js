@@ -39,14 +39,8 @@ function setSelectedAwayTeam() {
     document.getElementById("awayTeamScoreLabel").innerHTML = awayTeamName + " Score";
 }
 
-function getSelectedHomeTeamId() {
-    return document.getElementById("homeTeam").value;
-}
-function getSelectedAwayTeamId() {
-    return document.getElementById("awayTeam").value;
-}
-
 function showAddPlayerStatsForm() {
+    filterPlayers();
     document.getElementById("addPlayerStatsForm").style.display = "block";
 }
 
@@ -144,4 +138,35 @@ function addStatToForm() {
 
 function cancelForm() {
     document.getElementById("addPlayerStatsForm").style.display = "none";
+}
+
+function filterPlayers(){
+    let homeOrAway = document.getElementById("homeOrAway").value;
+    console.log(homeOrAway);
+
+    let teamId;
+
+    if (homeOrAway == "Home"){
+        teamId = document.getElementById("homeTeam").value;
+        console.log(teamId);
+    } else if (homeOrAway == "Away"){
+        teamId = document.getElementById("awayTeam").value;
+        console.log(teamId);
+    }
+
+
+    let playersList = document.getElementById("player").children;
+    console.log(playersList);
+
+
+    for (let i=0; i<playersList.length; i++){
+        let player = playersList[i];
+        console.log(player.getAttribute("name"));
+        console.log(teamId)
+        if (player.getAttribute("name") == teamId){
+            player.style.display = "";
+        } else {
+            player.style.display = "none";
+        }
+    }
 }
