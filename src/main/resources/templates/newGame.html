@@ -26,53 +26,164 @@
         <select id="homeTeam" class="form-select" name="homeTeam" th:field="*{homeTeamId}" onchange="setSelectedHomeTeam()" required>
             <option th:each="team : ${teams}" th:value="${team.id}" th:text="${team.name}"></option>
         </select>
-        <br>
-        <label for="homeTeamScore" id="homeTeamScoreLabel" class="form-label">Home Team Score:</label>
-        <input class="form-control" type="number" id="homeTeamScore" name="homeTeamScore" th:field="*{homeTeamScore}" onchange="fixHomeScore()" required>
-        <br>
         <label for="awayTeam" class="form-label">Away Team:</label>
-        <select id="awayTeam" class="form-select "name="awayTeam" th:field="*{awayTeamId}" onchange="setSelectedAwayTeam()" required>
+        <select id="awayTeam" class="form-select " name="awayTeam" th:field="*{awayTeamId}" onchange="setSelectedAwayTeam()" required>
             <option th:each="team : ${teams}" th:value="${team.id}" th:text="${team.name}"></option>
         </select>
-        <br>
-        <label for="awayTeamScore" id="awayTeamScoreLabel" class="form-label">Away Team Score:</label>
-        <input type="number" class="form-control" id="awayTeamScore" name="awayTeamScore" th:field="*{awayTeamScore}" onchange="fixAwayScore()" required>
-        <br>
         <label for="date" class="form-label">Date:</label>
-        <input type="date" class="form-control" id="date" name="date" th:field="*{date}" required>
+        <input type="date" class="form-control" id="date" name="date" th:field="*{date}" required><br>
+                <h2>Scorecard</h2>
+                <table class="m-auto">
+                    <thead>
+                    <tr>
+                        <th scope="col">Q</th>
+                        <th scope="col">1</th>
+                        <th scope="col">2</th>
+                        <th scope="col">3</th>
+                        <th scope="col">4</th>
+                        <th scope="col">=</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <th scope="row" id="homeTeamName">Home</th>
+                        <td><input type="number" class="form-control" id="homeTeamScoreQ1" name="homeTeamScoreQ1" th:field="*{homeTeamScoreQ1}" onchange="fixHomeScore()"></td>
+                        <td><input type="number" class="form-control" id="homeTeamScoreQ2" name="homeTeamScoreQ2" th:field="*{homeTeamScoreQ2}" onchange="fixHomeScore()"></td>
+                        <td><input type="number" class="form-control" id="homeTeamScoreQ3" name="homeTeamScoreQ3" th:field="*{homeTeamScoreQ3}" onchange="fixHomeScore()"></td>
+                        <td><input type="number" class="form-control" id="homeTeamScoreQ4" name="homeTeamScoreQ4" th:field="*{homeTeamScoreQ4}" onchange="fixHomeScore()"></td>
+                        <td><input type="number" class="form-control" id="homeTeamScore" name="homeTeamScore" th:field="*{homeTeamScore}" onchange="fixHomeScore()" required></td>
+                    </tr>
+                    <tr>
+                        <th scope="row" id="awayTeamName">Away</th>
+                        <td><input type="number" class="form-control" id="awayTeamScoreQ1" name="awayTeamScoreQ1" th:field="*{awayTeamScoreQ1}" onchange="fixAwayScore()"></td>
+                        <td><input type="number" class="form-control" id="awayTeamScoreQ2" name="awayTeamScoreQ2" th:field="*{awayTeamScoreQ2}" onchange="fixAwayScore()"></td>
+                        <td><input type="number" class="form-control" id="awayTeamScoreQ3" name="awayTeamScoreQ3" th:field="*{awayTeamScoreQ3}" onchange="fixAwayScore()"></td>
+                        <td><input type="number" class="form-control" id="awayTeamScoreQ4" name="awayTeamScoreQ4" th:field="*{awayTeamScoreQ4}" onchange="fixAwayScore()"></td>
+                        <td><input type="number" class="form-control" id="awayTeamScore" name="awayTeamScore" th:field="*{awayTeamScore}" onchange="fixAwayScore()" required></td>
+                    </tr>
+                    </tbody>
+                </table><br>
+                <button class="btn btn-success" type="button" onclick="showAddPlayerStatsForm()">Update Box Score</button>
+                <br><br>
+                <input type="submit" class="btn btn-primary" value="Submit Game">
                 </div>
             <div class="col-6">
-        <h2>Scorecard (Optional)</h2>
-        <table class="m-auto">
-            <thead>
-            <tr>
-                <th scope="col">Q</th>
-                <th scope="col">1</th>
-                <th scope="col">2</th>
-                <th scope="col">3</th>
-                <th scope="col">4</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <th scope="row" id="homeTeamName">Home</th>
-                <td><input type="number" class="form-control" id="homeTeamScoreQ1" name="homeTeamScoreQ1" th:field="*{homeTeamScoreQ1}" onchange="fixHomeScore()"></td>
-                <td><input type="number" class="form-control" id="homeTeamScoreQ2" name="homeTeamScoreQ2" th:field="*{homeTeamScoreQ2}" onchange="fixHomeScore()"></td>
-                <td><input type="number" class="form-control" id="homeTeamScoreQ3" name="homeTeamScoreQ3" th:field="*{homeTeamScoreQ3}" onchange="fixHomeScore()"></td>
-                <td><input type="number" class="form-control" id="homeTeamScoreQ4" name="homeTeamScoreQ4" th:field="*{homeTeamScoreQ4}" onchange="fixHomeScore()"></td>
-            </tr>
-            <tr>
-                <th scope="row" id="awayTeamName">Away</th>
-                <td><input type="number" class="form-control" id="awayTeamScoreQ1" name="awayTeamScoreQ1" th:field="*{awayTeamScoreQ1}" onchange="fixAwayScore()"></td>
-                <td><input type="number" class="form-control" id="awayTeamScoreQ2" name="awayTeamScoreQ2" th:field="*{awayTeamScoreQ2}" onchange="fixAwayScore()"></td>
-                <td><input type="number" class="form-control" id="awayTeamScoreQ3" name="awayTeamScoreQ3" th:field="*{awayTeamScoreQ3}" onchange="fixAwayScore()"></td>
-                <td><input type="number" class="form-control" id="awayTeamScoreQ4" name="awayTeamScoreQ4" th:field="*{awayTeamScoreQ4}" onchange="fixAwayScore()"></td>
-            </tr>
-            </tbody>
-        </table>
+                <h4>Box Score (Optional)</h4>
+                <div class="border border-dark">
+                <h4 class="text-start">Home Passing</h4>
+                <input type="hidden" id="homePassing" th:field="*{homePassing}">
+                <table class="table" id="homePassingTable">
+                    <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">PLAYER</th>
+                        <th scope="col">C-A</th>
+                        <th scope="col">YDS</th>
+                        <th scope="col">TDS</th>
+                        <th scope="col">INT</th>
+                        <th scope="col">CMP%</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+                    </div>
+                <div class="border border-dark">
+                <h4 class="text-start">Away Passing</h4>
+                <input type="hidden" id="awayPassing" th:field="*{awayPassing}">
+                <table class="table" id="awayPassingTable">
+                    <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">PLAYER</th>
+                        <th scope="col">C-A</th>
+                        <th scope="col">YDS</th>
+                        <th scope="col">TDS</th>
+                        <th scope="col">INT</th>
+                        <th scope="col">CMP%</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+                    </div>
+                <div class="border border-dark">
+                    <h4 class="text-start">Home Rushing</h4>
+                    <input type="hidden" id="homeRushing" th:field="*{homeRushing}">
+                    <table class="table" id="homeRushingTable">
+                        <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">PLAYER</th>
+                            <th scope="col">ATT</th>
+                            <th scope="col">YDS</th>
+                            <th scope="col">TDS</th>
+                            <th scope="col">LNG</th>
+                            <th scope="col">AVG</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="border border-dark">
+                    <h4 class="text-start">Away Rushing</h4>
+                    <input type="hidden" id="awayRushing" th:field="*{awayRushing}">
+                    <table class="table" id="awayRushingTable">
+                        <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">PLAYER</th>
+                            <th scope="col">ATT</th>
+                            <th scope="col">YDS</th>
+                            <th scope="col">TDS</th>
+                            <th scope="col">LNG</th>
+                            <th scope="col">AVG</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="border border-dark">
+                    <h4 class="text-start">Home Receiving</h4>
+                    <input type="hidden" id="homeReceiving" th:field="*{homeReceiving}">
+                    <table class="table" id="homeReceivingTable">
+                        <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">PLAYER</th>
+                            <th scope="col">REC</th>
+                            <th scope="col">YDS</th>
+                            <th scope="col">TDS</th>
+                            <th scope="col">LNG</th>
+                            <th scope="col">AVG</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="border border-dark">
+                    <h4 class="text-start">Away Receiving</h4>
+                    <input type="hidden" id="awayReceiving" th:field="*{awayReceiving}">
+                    <table class="table" id="awayReceivingTable">
+                        <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">PLAYER</th>
+                            <th scope="col">REC</th>
+                            <th scope="col">YDS</th>
+                            <th scope="col">TDS</th>
+                            <th scope="col">LNG</th>
+                            <th scope="col">AVG</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
             </div>
-        <h2>Box Score (Optional)</h2>
-        <button class="btn btn-success" type="button" onclick="showAddPlayerStatsForm()">Add Player Stats</button>
 
         <!-- Start of add Player Stats modal form, does not affect the layout of the page -->
 
@@ -119,129 +230,6 @@
             <br><br>
         </div>
         <!-- End of modal form -->
-        <div class="container">
-            <div class="row text-start">
-                <div class="col-6 border border-dark">
-                    <h4>Home Passing</h4>
-                    <input type="hidden" id="homePassing" th:field="*{homePassing}">
-                    <table class="table" id="homePassingTable">
-                        <thead>
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">PLAYER</th>
-                            <th scope="col">C-A</th>
-                            <th scope="col">YDS</th>
-                            <th scope="col">TDS</th>
-                            <th scope="col">INT</th>
-                            <th scope="col">CMP%</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="col-6 border border-dark">
-                    <h4>Away Passing</h4>
-                    <input type="hidden" id="awayPassing" th:field="*{awayPassing}">
-                    <table class="table" id="awayPassingTable">
-                        <thead>
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">PLAYER</th>
-                            <th scope="col">C-A</th>
-                            <th scope="col">YDS</th>
-                            <th scope="col">TDS</th>
-                            <th scope="col">INT</th>
-                            <th scope="col">CMP%</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-            <div class="row text-start">
-                <div class="col-6 border border-dark">
-                    <h4>Home Rushing</h4>
-                    <input type="hidden" id="homeRushing" th:field="*{homeRushing}">
-                    <table class="table" id="homeRushingTable">
-                        <thead>
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">PLAYER</th>
-                            <th scope="col">ATT</th>
-                            <th scope="col">YDS</th>
-                            <th scope="col">TDS</th>
-                            <th scope="col">LNG</th>
-                            <th scope="col">AVG</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="col-6 border border-dark">
-                    <h4>Away Rushing</h4>
-                    <input type="hidden" id="awayRushing" th:field="*{awayRushing}">
-                    <table class="table" id="awayRushingTable">
-                        <thead>
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">PLAYER</th>
-                            <th scope="col">ATT</th>
-                            <th scope="col">YDS</th>
-                            <th scope="col">TDS</th>
-                            <th scope="col">LNG</th>
-                            <th scope="col">AVG</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-            <div class="row text-start">
-                <div class="col-6 border border-dark">
-                    <h4>Home Receiving</h4>
-                    <input type="hidden" id="homeReceiving" th:field="*{homeReceiving}">
-                    <table class="table" id="homeReceivingTable">
-                        <thead>
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">PLAYER</th>
-                            <th scope="col">REC</th>
-                            <th scope="col">YDS</th>
-                            <th scope="col">TDS</th>
-                            <th scope="col">LNG</th>
-                            <th scope="col">AVG</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="col-6 border border-dark">
-                    <h4>Away Receiving</h4>
-                    <input type="hidden" id="awayReceiving" th:field="*{awayReceiving}">
-                    <table class="table" id="awayReceivingTable">
-                        <thead>
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">PLAYER</th>
-                            <th scope="col">REC</th>
-                            <th scope="col">YDS</th>
-                            <th scope="col">TDS</th>
-                            <th scope="col">LNG</th>
-                            <th scope="col">AVG</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-        <input type="submit" class="btn btn-primary" value="Add Game">
         </div>
     </form>
 </div>
