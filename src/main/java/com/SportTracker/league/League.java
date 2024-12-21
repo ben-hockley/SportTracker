@@ -1,4 +1,4 @@
-package com.SportTracker.team;
+package com.SportTracker.league;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -6,10 +6,8 @@ import org.springframework.data.annotation.Id;
 
 @Getter
 @Setter
-public class Team {
+public class League {
     @Id
-    private Long id;
+    private long id;
     private String name;
-    private Long leagueId;
-    private String logoUrl;
 }

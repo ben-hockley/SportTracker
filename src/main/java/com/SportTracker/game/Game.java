@@ -24,6 +24,7 @@ public class Game {
     private Integer homeTeamScore;
     private Integer awayTeamScore;
 
+    private Long seasonId;
     // optional fields
     private Integer homeTeamScoreQ1;
     private Integer homeTeamScoreQ2;

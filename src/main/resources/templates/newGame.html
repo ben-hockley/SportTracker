@@ -30,6 +30,10 @@
         <select id="awayTeam" class="form-select " name="awayTeam" th:field="*{awayTeamId}" onchange="setSelectedAwayTeam()" required>
             <option th:each="team : ${teams}" th:value="${team.id}" th:text="${team.name}"></option>
         </select>
+                <label for="season" class="form-label">Season</label>
+                <select id="season" class="form-select " name="season" th:field="*{seasonId}" required>
+                    <option th:each="season : ${seasons}" th:value="${season.id}" th:text="${leagues.get(season.leagueId - 1).name} + ' ' + ${season.year}"></option>
+                </select>
         <label for="date" class="form-label">Date:</label>
         <input type="date" class="form-control" id="date" name="date" th:field="*{date}" required><br>
                 <h2>Scorecard</h2>

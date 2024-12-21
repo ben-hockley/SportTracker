@@ -22,7 +22,9 @@
         <input type="text" id="name" name="name" th:field="*{name}" required>
         <br>
         <label for="league">League:</label>
-        <input type="text" id="league" name="league" th:field="*{league}" required>
+        <select id="league" name="league" th:field="*{leagueId}" required>
+            <option th:each="league : ${leagues}" th:value="${league.id}" th:text="${league.name}"></option>
+        </select>
         <br>
         <label for="logoUrl">Logo URL:</label>
         <input type="text" id="logoUrl" name="logoUrl" th:field="*{logoUrl}" required>

@@ -20,6 +20,8 @@ public class GameWithTeams {
     private Integer homeTeamScore;
     private Integer awayTeamScore;
 
+    private Long seasonId;
+
     // optional fields
     private Integer homeTeamScoreQ1;
     private Integer homeTeamScoreQ2;
@@ -45,6 +47,8 @@ public class GameWithTeams {
         this.awayTeam = awayTeam;
         this.homeTeamScore = gameToConvert.getHomeTeamScore();
         this.awayTeamScore = gameToConvert.getAwayTeamScore();
+
+        this.seasonId = gameToConvert.getSeasonId();
 
         this.homeTeamScoreQ1 = gameToConvert.getHomeTeamScoreQ1();
         this.homeTeamScoreQ2 = gameToConvert.getHomeTeamScoreQ2();

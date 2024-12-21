@@ -3,6 +3,8 @@ package com.SportTracker.team;
 import com.SportTracker.game.Game;
 import com.SportTracker.game.GameRepository;
 import com.SportTracker.game.GameWithTeams;
+import com.SportTracker.league.League;
+import com.SportTracker.league.LeagueRepository;
 import com.SportTracker.player.Player;
 import com.SportTracker.player.PlayerRepository;
 import org.springframework.stereotype.Controller;
@@ -19,22 +21,26 @@ public class TeamController {
     private final TeamRepository teamRepository;
     private final PlayerRepository playerRepository;
     private final GameRepository gameRepository;
+    private final LeagueRepository leagueRepository;
 
-    public TeamController(TeamRepository teamRepository, PlayerRepository playerRepository, GameRepository gameRepository) {
+    public TeamController(TeamRepository teamRepository, PlayerRepository playerRepository, GameRepository gameRepository, LeagueRepository leagueRepository) {
         this.teamRepository = teamRepository;
         this.playerRepository = playerRepository;
         this.gameRepository = gameRepository;
+        this.leagueRepository = leagueRepository;
     }
 
     @GetMapping("/allTeams")
     public String allTeams(Model model) {
         model.addAttribute("teams", teamRepository.findAll());
+        model.addAttribute("leagues", leagueRepository.findAll());
         return "allTeams";
     }
 
     @GetMapping("/newTeam")
     public String newTeam(Model model) {
         model.addAttribute("team", new Team());
+        model.addAttribute("leagues", leagueRepository.findAll());
         return "newTeam";
     }
 
@@ -50,6 +56,8 @@ public class TeamController {
         // Get the team by id
         Team team = teamRepository.findById(id);
 
+        League league = leagueRepository.findById(team.getLeagueId());
+
         // Get the list of players for the team
         List<Player> players = playerRepository.findByTeamId(id);
 
@@ -63,6 +71,8 @@ public class TeamController {
         }
 
         model.addAttribute("games", allGamesWithTeams);
+
+        model.addAttribute("league", league);
 
         model.addAttribute("team", team);
         model.addAttribute("players", players);

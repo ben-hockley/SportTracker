@@ -26,22 +26,15 @@ public class TeamRepository {
                 .single();
     }
 
-    public Team findByName(String name) {
-        return jdbcClient.sql("SELECT * FROM sport_tracker.team WHERE name = :name")
-                .param("name", name)
-                .query(Team.class)
-                .single();
-    }
-
     public void save(Team team) {
 
         String teamName = team.getName();
-        String teamLeague = team.getLeague();
+        Long teamLeagueId = team.getLeagueId();
         String teamLogoUrl = team.getLogoUrl();
 
-        jdbcClient.sql("INSERT INTO sport_tracker.team (name, league, logoUrl) VALUES (:name, :league, :logoUrl)")
+        jdbcClient.sql("INSERT INTO sport_tracker.team (name, leagueId, logoUrl) VALUES (:name, :league, :logoUrl)")
                 .param("name", teamName)
-                .param("league", teamLeague)
+                .param("league", teamLeagueId)
                 .param("logoUrl", teamLogoUrl)
                 .update();
     }

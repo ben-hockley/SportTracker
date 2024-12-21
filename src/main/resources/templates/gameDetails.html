@@ -26,6 +26,13 @@
             </div>
         </div>
         <div class="col-6 border border-dark container"> <!-- Game Information -->
+
+            <div class="row">
+                <h1>Game Summary</h1>
+            </div>
+            <div class="row">
+                <h2 th:text="${league.name} + ' ' + ${season.year}"></h2>
+            </div>
             <div class="row">
                 <h2 th:text="${game.date}"></h2>
             </div>

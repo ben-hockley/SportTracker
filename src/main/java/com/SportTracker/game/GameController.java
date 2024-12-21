@@ -1,6 +1,10 @@
 package com.SportTracker.game;
 
+import com.SportTracker.league.League;
+import com.SportTracker.league.LeagueRepository;
 import com.SportTracker.player.PlayerRepository;
+import com.SportTracker.season.Season;
+import com.SportTracker.season.SeasonRepository;
 import com.SportTracker.team.Team;
 import com.SportTracker.team.TeamRepository;
 import org.springframework.stereotype.Controller;
@@ -17,11 +21,15 @@ public class GameController {
     private final GameRepository gameRepository;
     private final TeamRepository teamRepository;
     private final PlayerRepository playerRepository;
+    private final SeasonRepository seasonRepository;
+    private final LeagueRepository leagueRepository;
 
-    public GameController(GameRepository gameRepository, TeamRepository teamRepository, PlayerRepository playerRepository) {
+    public GameController(GameRepository gameRepository, TeamRepository teamRepository, PlayerRepository playerRepository, SeasonRepository seasonRepository, LeagueRepository leagueRepository) {
         this.gameRepository = gameRepository;
         this.teamRepository = teamRepository;
         this.playerRepository = playerRepository;
+        this.seasonRepository = seasonRepository;
+        this.leagueRepository = leagueRepository;
     }
 
     @GetMapping("/allGames")
@@ -44,6 +52,8 @@ public class GameController {
     public String newGame(Model model) {
         model.addAttribute("teams", teamRepository.findAll());
         model.addAttribute("players", playerRepository.findAll());
+        model.addAttribute("seasons", seasonRepository.findAll());
+        model.addAttribute("leagues", leagueRepository.findAll());
         model.addAttribute("game", new Game());
         return "newGame";
     }
@@ -59,7 +69,11 @@ public class GameController {
         Game game = gameRepository.findById(id);
         Team homeTeam = teamRepository.findById(game.getHomeTeamId().longValue());
         Team awayTeam = teamRepository.findById(game.getAwayTeamId().longValue());
+        Season season = seasonRepository.findById(game.getSeasonId());
+        League league = leagueRepository.findById(season.getLeagueId());
         model.addAttribute("game", game);
+        model.addAttribute("season", season);
+        model.addAttribute("league", league);
         model.addAttribute("homeTeam", homeTeam);
         model.addAttribute("awayTeam", awayTeam);
         model.addAttribute("players", playerRepository.findAll());

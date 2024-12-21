@@ -33,7 +33,7 @@
             <td>
                 <a th:href="'/teamDetails/' + ${team.id}" th:text="${team.name}"></a>
             </td>
-            <td th:text="${team.league}"></td>
+            <td th:text="${leagues.get(team.getLeagueId() - 1).name}"></td>
             <td>
                 <img th:src="${team.logoUrl}" th:alt="${team.name} + '\'s logo'" height="50">
             </td>

@@ -43,6 +43,8 @@ public class GameRepository {
         Integer homeTeamScore = game.getHomeTeamScore();
         Integer awayTeamScore = game.getAwayTeamScore();
 
+        Long seasonId = game.getSeasonId();
+
         // Optional fields
         Integer homeTeamScoreQ1 = game.getHomeTeamScoreQ1();
         Integer homeTeamScoreQ2 = game.getHomeTeamScoreQ2();
@@ -61,12 +63,13 @@ public class GameRepository {
         String awayReceiving = game.getAwayReceiving();
 
         jdbcClient.sql(
-                "INSERT INTO sport_tracker.game (date,homeTeamId, awayTeamId, homeTeamScore, awayTeamScore, homeTeamScoreQ1, homeTeamScoreQ2, homeTeamScoreQ3, homeTeamScoreQ4, awayTeamScoreQ1, awayTeamScoreQ2, awayTeamScoreQ3, awayTeamScoreQ4, homePassing, awayPassing, homeRushing, awayRushing, homeReceiving, awayReceiving) VALUES (:date, :homeTeamId, :awayTeamId, :homeTeamScore, :awayTeamScore, :homeTeamScoreQ1, :homeTeamScoreQ2, :homeTeamScoreQ3, :homeTeamScoreQ4, :awayTeamScoreQ1, :awayTeamScoreQ2, :awayTeamScoreQ3, :awayTeamScoreQ4, :homePassing, :awayPassing, :homeRushing, :awayRushing, :homeReceiving, :awayReceiving)")
+                "INSERT INTO sport_tracker.game (date,homeTeamId, awayTeamId, homeTeamScore, awayTeamScore, seasonId, homeTeamScoreQ1, homeTeamScoreQ2, homeTeamScoreQ3, homeTeamScoreQ4, awayTeamScoreQ1, awayTeamScoreQ2, awayTeamScoreQ3, awayTeamScoreQ4, homePassing, awayPassing, homeRushing, awayRushing, homeReceiving, awayReceiving) VALUES (:date, :homeTeamId, :awayTeamId, :homeTeamScore, :awayTeamScore, :seasonId, :homeTeamScoreQ1, :homeTeamScoreQ2, :homeTeamScoreQ3, :homeTeamScoreQ4, :awayTeamScoreQ1, :awayTeamScoreQ2, :awayTeamScoreQ3, :awayTeamScoreQ4, :homePassing, :awayPassing, :homeRushing, :awayRushing, :homeReceiving, :awayReceiving)")
                 .param("date", gameDate)
                 .param("homeTeamId", homeTeamId)
                 .param("awayTeamId", awayTeamId)
                 .param("homeTeamScore", homeTeamScore)
                 .param("awayTeamScore", awayTeamScore)
+                .param("seasonId", seasonId)
                 .param("homeTeamScoreQ1", homeTeamScoreQ1)
                 .param("homeTeamScoreQ2", homeTeamScoreQ2)
                 .param("homeTeamScoreQ3", homeTeamScoreQ3)
