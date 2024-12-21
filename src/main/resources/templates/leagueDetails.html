@@ -21,6 +21,30 @@
             <div class="row border border-dark">
                 <div class="col-8">
                     <h1 th:text="${league.name} + ' Standings'"></h1>
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>Team</th>
+                            <th>Games</th>
+                            <th>Wins</th>
+                            <th>Losses</th>
+                            <th>Ties</th>
+                            <th>PF</th>
+                            <th>PA</th>
+                        </tr>
+                        </thead>
+                        <tbody th:each="season : ${seasons}" th:class="${season.id}">
+                        <tr th:each="record : ${season.standings}">
+                            <td th:text="${record.team.name}"></td>
+                            <td th:text="${record.wins + record.losses + record.ties}"></td>
+                            <td th:text="${record.wins}"></td>
+                            <td th:text="${record.losses}"></td>
+                            <td th:text="${record.ties}"></td>
+                            <td th:text="${record.pointsFor}"></td>
+                            <td th:text="${record.pointsAgainst}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
                 </div>
                 <div class="col-4 border border-dark">
                     <label class="form-label" for="season">Season</label>
@@ -42,13 +66,14 @@
                     <th>Date</th>
                 </tr>
                 </thead>
-                <tbody th:each="season : ${seasons}" th:id="${season.id}">
+                <tbody th:each="season : ${seasons}" th:class="${season.id}">
                 <tr th:each="game : ${season.games}">
                     <td th:text="${game.homeTeam.name}"></td>
                     <td th:text="${game.homeTeamScore}"></td>
                     <td th:text="${game.awayTeam.name}"></td>
                     <td th:text="${game.awayTeamScore}"></td>
                     <td th:text="${game.date}"></td>
+                </tr>
                 </tbody>
             </table>
         </div>

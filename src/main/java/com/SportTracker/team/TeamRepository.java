@@ -38,4 +38,11 @@ public class TeamRepository {
                 .param("logoUrl", teamLogoUrl)
                 .update();
     }
+
+    public List<Team> findByLeagueId(Long id){
+        return jdbcClient.sql("SELECT * FROM sport_tracker.team WHERE leagueId = :id")
+                .param("id", id)
+                .query(Team.class)
+                .list();
+    }
 }

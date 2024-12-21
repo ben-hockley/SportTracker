@@ -1,15 +1,12 @@
 function showSeasonGames() {
     let currentSeasonId = document.getElementById("season").value;
-    let recentGamesTable = document.getElementById("recentGames");
 
-    let seasons = recentGamesTable.getElementsByTagName("tbody");
-
-    for (let i=0; i<seasons.length; i++) {
-        let season = seasons[i];
-        if (season.id == currentSeasonId) {
-            season.style.display = "";
+    let allTables = document.getElementsByTagName("tbody");
+    for (let i = 0; i < allTables.length; i++) {
+        if (allTables[i].className == currentSeasonId) {
+            allTables[i].style.display = "";
         } else {
-            season.style.display = "none";
+            allTables[i].style.display = "none";
         }
     }
 }

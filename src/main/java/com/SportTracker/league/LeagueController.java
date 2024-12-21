@@ -1,13 +1,19 @@
 package com.SportTracker.league;
 
+import com.SportTracker.game.Game;
 import com.SportTracker.game.GameRepository;
+import com.SportTracker.game.GameWithTeams;
 import com.SportTracker.season.Season;
 import com.SportTracker.season.SeasonRepository;
+import com.SportTracker.team.Team;
+import com.SportTracker.team.TeamRepository;
+import com.SportTracker.team.TeamSeasonRecord;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -16,11 +22,13 @@ public class LeagueController {
     private final LeagueRepository leagueRepository;
     private final SeasonRepository seasonRepository;
     private final GameRepository gameRepository;
+    private final TeamRepository teamRepository;
 
-    public LeagueController(LeagueRepository leagueRepository, SeasonRepository seasonRepository, GameRepository gameRepository) {
+    public LeagueController(LeagueRepository leagueRepository, SeasonRepository seasonRepository, GameRepository gameRepository, TeamRepository teamRepository) {
         this.leagueRepository = leagueRepository;
         this.seasonRepository = seasonRepository;
         this.gameRepository = gameRepository;
+        this.teamRepository = teamRepository;
     }
     @GetMapping("/league/{id}")
     public String viewLeague(Model model, @PathVariable Long id) {
@@ -29,9 +37,72 @@ public class LeagueController {
         List<Season> seasons = seasonRepository.findByLeagueId(id);
         model.addAttribute("seasons", seasons);
 
+        List<Team> teams = teamRepository.findByLeagueId(id);
+
         for (Season season : seasons) {
-            season.setGames(gameRepository.findGameWithTeamsBySeasonId(season.getId()));
-        }
+
+            List<GameWithTeams> games = gameRepository.findGameWithTeamsBySeasonId(season.getId());
+            //sort games by date, most recent first
+            games.sort((a, b) -> b.getDate().compareTo(a.getDate()));
+            season.setGames(games);
+
+            List<TeamSeasonRecord> standings = new ArrayList<>();
+            for (Team team : teams) {
+                // create a record for each team in the league
+                standings.add(new TeamSeasonRecord(team, 0, 0, 0, 0, 0));
+            }
+
+            // go through every game in the season, and update stats for the home and away team.
+            for (GameWithTeams game : season.getGames()){
+                for (TeamSeasonRecord record : standings) {
+                    // if a record contains one of the teams, then update that record.
+                        if (record.getTeam().getId() == game.getHomeTeam().getId()) {
+
+                            System.out.println("Home team: " + game.getHomeTeam().getName());
+
+                            record.setPointsFor(record.getPointsFor() + game.getHomeTeamScore());
+                            record.setPointsAgainst(record.getPointsAgainst() + game.getAwayTeamScore());
+
+                            if (game.getHomeTeamScore() > game.getAwayTeamScore()) {
+                                record.setWins(record.getWins() + 1);
+                            } else if (game.getHomeTeamScore() == game.getAwayTeamScore()){
+                                record.setTies(record.getTies() + 1);
+                            } else {
+                                record.setLosses(record.getLosses() + 1);
+                            }
+                        } else if (record.getTeam().getId() == game.getAwayTeam().getId()) {
+
+                            System.out.println("Away team: " + game.getAwayTeam().getName());
+
+                            record.setPointsFor(record.getPointsFor() + game.getAwayTeamScore());
+                            record.setPointsAgainst(record.getPointsAgainst() + game.getHomeTeamScore());
+
+                            if (game.getAwayTeamScore() > game.getHomeTeamScore()) {
+                                record.setWins(record.getWins() + 1);
+                            } else if (game.getHomeTeamScore() == game.getAwayTeamScore()){
+                                record.setTies(record.getTies() + 1);
+                            } else {
+                                record.setLosses(record.getLosses() + 1);
+                            }
+                        }
+                    }
+                }
+
+            //sort standings, by wins first, then ties, then points scored, then least points against.
+            standings.sort((a, b) -> {
+                if (a.getWins() != b.getWins()) {
+                    return b.getWins() - a.getWins();
+                } else if (a.getTies() != b.getTies()) {
+                    return b.getTies() - a.getTies();
+                } else if (a.getPointsFor() != b.getPointsFor()) {
+                    return b.getPointsFor() - a.getPointsFor();
+                } else {
+                    return a.getPointsAgainst() - b.getPointsAgainst();
+                }
+            });
+
+            season.setStandings(standings);
+            }
         model.addAttribute("seasons", seasons);
         return "leagueDetails";
     }
