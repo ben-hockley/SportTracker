@@ -1,9 +1,11 @@
 package com.SportTracker.game;
 
+import com.SportTracker.team.Team;
 import org.springframework.jdbc.core.simple.JdbcClient;
 import org.springframework.stereotype.Repository;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 @Repository
@@ -86,5 +88,30 @@ public class GameRepository {
                 .param("awayReceiving", awayReceiving)
 
                 .update();
+    }
+
+    public List<Game> findGamesBySeasonId(Long seasonId) {
+        return jdbcClient.sql("SELECT * FROM sport_tracker.game WHERE seasonId = :seasonId")
+                .param("seasonId", seasonId)
+                .query(Game.class)
+                .list();
+    }
+
+    public List<GameWithTeams> findGameWithTeamsBySeasonId(Long seasonId) {
+        List<Game> games = findGamesBySeasonId(seasonId);
+
+        List<GameWithTeams> gamesWithTeams = new ArrayList<>();
+        for (Game game : games) {
+            Team homeTeam = jdbcClient.sql("SELECT * FROM sport_tracker.team WHERE id = :id")
+                    .param("id", game.getHomeTeamId())
+                    .query(Team.class)
+                    .single();
+            Team awayTeam = jdbcClient.sql("SELECT * FROM sport_tracker.team WHERE id = :id")
+                    .param("id", game.getAwayTeamId())
+                    .query(Team.class)
+                    .single();
+            gamesWithTeams.add(new GameWithTeams(game, homeTeam, awayTeam));
+        }
+        return gamesWithTeams;
     }
 }

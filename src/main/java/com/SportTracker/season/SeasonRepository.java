@@ -25,4 +25,11 @@ public class SeasonRepository {
                 .query(Season.class)
                 .single();
     }
+
+    public List<Season> findByLeagueId(Long leagueId) {
+        return jdbcClient.sql("SELECT * FROM sport_tracker.season WHERE leagueId = :leagueId")
+                .param("leagueId", leagueId)
+                .query(Season.class)
+                .list();
+    }
 }
