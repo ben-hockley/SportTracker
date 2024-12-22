@@ -31,7 +31,7 @@
                 <h1>Game Summary</h1>
             </div>
             <div class="row">
-                <h2 th:text="${league.name} + ' ' + ${season.year}"></h2>
+                <h2><a th:text="${league.name} + ' ' + ${season.year}" th:href="'/league/' + ${league.id}"></a></h2>
             </div>
             <div class="row">
                 <h2 th:text="${game.date}"></h2>

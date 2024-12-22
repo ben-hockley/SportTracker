@@ -2,6 +2,8 @@ package com.SportTracker.player;
 
 import com.SportTracker.game.Game;
 import com.SportTracker.game.GameWithTeams;
+import com.SportTracker.league.League;
+import com.SportTracker.league.LeagueRepository;
 import com.SportTracker.team.Team;
 import com.SportTracker.team.TeamRepository;
 import org.springframework.stereotype.Controller;
@@ -17,10 +19,12 @@ import java.util.List;
 public class PlayerController {
     private final PlayerRepository playerRepository;
     private final TeamRepository teamRepository;
+    private final LeagueRepository leagueRepository;
 
-    public PlayerController(PlayerRepository playerRepository, TeamRepository teamRepository) {
+    public PlayerController(PlayerRepository playerRepository, TeamRepository teamRepository, LeagueRepository leagueRepository) {
         this.playerRepository = playerRepository;
         this.teamRepository = teamRepository;
+        this.leagueRepository = leagueRepository;
     }
 
     @GetMapping("/allPlayers")
@@ -58,8 +62,10 @@ public class PlayerController {
 
         // Get the team for the player
         Team team = teamRepository.findById(player.getTeamId());
+        League league = leagueRepository.findById(team.getLeagueId());
         model.addAttribute("player", player);
         model.addAttribute("team", team);
+        model.addAttribute("league", league);
         return "playerDetails";
     }
 

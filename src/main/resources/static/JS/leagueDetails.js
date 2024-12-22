@@ -3,7 +3,7 @@ function showSeasonGames() {
 
     let allTables = document.getElementsByTagName("tbody");
     for (let i = 0; i < allTables.length; i++) {
-        if (allTables[i].className == currentSeasonId) {
+        if (allTables[i].className == currentSeasonId || allTables[i].className == "showThis") {
             allTables[i].style.display = "";
         } else {
             allTables[i].style.display = "none";

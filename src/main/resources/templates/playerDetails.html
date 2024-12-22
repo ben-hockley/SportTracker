@@ -18,7 +18,7 @@
 <div class="container text-center">
     <h1 th:text="${player.name}"></h1>
     <img th:src="${team.logoUrl}" th:alt="${team.name} + '\'s logo'" height="100">
-    <h2>Team: <a th:text="${team.name} + ' (' + ${team.league} + ') '" th:href="'/teamDetails/' + ${team.id}"></a></h2>
+    <h2>Team: <a th:text="${team.name} + ' (' + ${league.name} + ') '" th:href="'/teamDetails/' + ${team.id}"></a></h2>
     <h2>Number: <span th:text="${player.number}"></span></h2>
     <h2>Position: <span th:text="${player.position}"></span></h2>
 </div>

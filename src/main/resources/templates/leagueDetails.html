@@ -17,10 +17,20 @@
 <nav th:replace="fragments/navbar :: navbar"></nav>
 <div class="container text-center">
     <div class="row">
-        <div class="col-8 container border border-dark">
-            <div class="row border border-dark">
-                <div class="col-8">
-                    <h1 th:text="${league.name} + ' Standings'"></h1>
+        <div class="col-8">
+            <h1 th:text="${league.name}"></h1>
+        </div>
+        <div class="col-4">
+            <label class="form-label" for="season">Season</label>
+            <select class="form-select" id="season" name="season" onchange="showSeasonGames()">
+                <option th:each="season : ${seasons}" th:value="${season.id}" th:text="${season.year}"></option>
+            </select>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-5 container border border-dark">
+            <div class="row">
+                    <h2>Standings</h2>
                     <table class="table">
                         <thead>
                         <tr>
@@ -35,7 +45,7 @@
                         </thead>
                         <tbody th:each="season : ${seasons}" th:class="${season.id}">
                         <tr th:each="record : ${season.standings}">
-                            <td th:text="${record.team.name}"></td>
+                            <td><a th:text="${record.team.name}" th:href="'/teamDetails/' + ${record.team.id}"></a></td>
                             <td th:text="${record.wins + record.losses + record.ties}"></td>
                             <td th:text="${record.wins}"></td>
                             <td th:text="${record.losses}"></td>
@@ -46,33 +56,44 @@
                         </tbody>
                     </table>
                 </div>
-                <div class="col-4 border border-dark">
-                    <label class="form-label" for="season">Season</label>
-                    <select class="form-select" id="season" name="season" onchange="showSeasonGames()">
-                        <option th:each="season : ${seasons}" th:value="${season.id}" th:text="${season.year}"></option>
-                    </select>
-                </div>
             </div>
-        </div>
-        <div class="col-4 container text-center border border-black">
+        <div class="col-4 container text-center border border-dark">
             <h2>Recent Games</h2>
             <table class="table table-striped" id="recentGames">
                 <thead>
                 <tr>
                     <th>Home Team</th>
-                    <th>Home Team Score</th>
+                    <th> - </th>
                     <th>Away Team</th>
-                    <th>Away Team Score</th>
                     <th>Date</th>
                 </tr>
                 </thead>
                 <tbody th:each="season : ${seasons}" th:class="${season.id}">
                 <tr th:each="game : ${season.games}">
-                    <td th:text="${game.homeTeam.name}"></td>
-                    <td th:text="${game.homeTeamScore}"></td>
-                    <td th:text="${game.awayTeam.name}"></td>
-                    <td th:text="${game.awayTeamScore}"></td>
+                    <td><a th:text="${game.homeTeam.name}" th:href="'/teamDetails/' + ${game.homeTeam.id}"></a></td>
+                    <td>
+                        <a th:text="${game.homeTeamScore} + '-' + ${game.awayTeamScore}" th:href="'/gameDetails/' + ${game.id}"></a>
+                    </td>
+                    <td><a th:text="${game.awayTeam.name}" th:href="'/teamDetails/' + ${game.awayTeam.id}"></a></td>
                     <td th:text="${game.date}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-3 container text-start border border-black">
+            <h2 class="text-center">Stat Leaders</h2>
+            <h4>Passing Yards</h4>
+            <table class="table table-striped" id="statLeaders">
+                <thead>
+                <tr>
+                    <th>Player</th>
+                    <th>YDS</th>
+                </tr>
+                </thead>
+                <tbody th:each="passingLeaders : ${passingYardsLeadersBySeason}" class="showThis">
+                <tr th:each="quarterback : ${passingLeaders}">
+                    <td><a th:text="${quarterback.playerName}" th:href="'/playerDetails/' + ${quarterback.playerId}"></a></td>
+                    <td th:text="${quarterback.playerStat}"></td>
                 </tr>
                 </tbody>
             </table>

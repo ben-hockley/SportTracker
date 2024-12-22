@@ -3,6 +3,8 @@ package com.SportTracker.league;
 import com.SportTracker.game.Game;
 import com.SportTracker.game.GameRepository;
 import com.SportTracker.game.GameWithTeams;
+import com.SportTracker.player.Player;
+import com.SportTracker.player.PlayerStats;
 import com.SportTracker.season.Season;
 import com.SportTracker.season.SeasonRepository;
 import com.SportTracker.team.Team;
@@ -104,6 +106,63 @@ public class LeagueController {
             season.setStandings(standings);
             }
         model.addAttribute("seasons", seasons);
+
+        // GET LEADING PLAYERS IN PASSING YARDS FOR EACH SEASON OF THE LEAGUE
+        List<List<PlayerStats>> allSeasonsPassingYards = new ArrayList<>();
+
+        // for each season in the league
+        for (Season season : seasons) {
+            // get all games in the season
+            List<Game> games = gameRepository.findGamesBySeasonId(season.getId());
+            List<String> passingRawStrings = new ArrayList<>();
+            // for each game in the season
+            for (Game game : games) {
+                // get the passing stats for the home and away team
+                passingRawStrings.add(game.getHomePassing());
+                passingRawStrings.add(game.getAwayPassing());
+            }
+            // remove any empty strings from the list
+            passingRawStrings.removeIf(String::isEmpty);
+            List<String> passingPlayerStats = new ArrayList<>();
+            // for each raw string, split it into individual player stats
+            for (String rawString : passingRawStrings) {
+                String[] playerStats = rawString.split(";");
+                for (String playerStat : playerStats) {
+                    if (!playerStat.isEmpty()) {
+                        passingPlayerStats.add(playerStat);
+                    }
+                }
+            }
+            // sort list of player stats by player id
+            passingPlayerStats.sort((a, b) -> {
+                String[] aSplit = a.split(",");
+                String[] bSplit = b.split(",");
+                return Integer.parseInt(aSplit[0]) - Integer.parseInt(bSplit[0]);
+            });
+
+            List<PlayerStats> passingYards = new ArrayList<>();
+
+            for (String playerPassingStats : passingPlayerStats) {
+                String[] stats = playerPassingStats.split(",");
+                if (passingYards.isEmpty() || passingYards.getLast().getPlayerId() != Integer.parseInt(stats[0])) {
+                    passingYards.add(new PlayerStats(season.getId(),Long.parseLong(stats[0]), stats[2], Integer.parseInt(stats[4])));
+                } else {
+                    passingYards.getLast().setPlayerStat(passingYards.getLast().getPlayerStat() + Integer.parseInt(stats[4]));
+                }
+            }
+
+            System.out.println("Passing yards for season " + season.getYear());
+            for (PlayerStats playerStats : passingYards) {
+                System.out.println(playerStats.getPlayerName() + " " + playerStats.getPlayerStat());
+            }
+
+            passingYards.sort((a, b) -> b.getPlayerStat() - a.getPlayerStat());
+            allSeasonsPassingYards.add(passingYards);
+
+        }
+
+        model.addAttribute("passingYardsLeadersBySeason", allSeasonsPassingYards);
+
         return "leagueDetails";
     }
 }
