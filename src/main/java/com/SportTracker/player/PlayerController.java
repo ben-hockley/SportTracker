@@ -69,4 +69,18 @@ public class PlayerController {
         return "playerDetails";
     }
 
+    @GetMapping("/editPlayer/{id}")
+    public String editPlayer(Model model, @PathVariable Long id) {
+        Player player = playerRepository.findById(id);
+        model.addAttribute("player", player);
+        model.addAttribute("teams", teamRepository.findAll());
+        return "editPlayer";
+    }
+
+    @PostMapping("/updatePlayer/{id}")
+    public String updatePlayer(Model model, @PathVariable Long id, Player player) {
+        playerRepository.update(player);
+        return "redirect:/playerDetails/" + id;
+    }
+
 }

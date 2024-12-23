@@ -67,6 +67,7 @@
             <th scope="col">Team</th>
             <th scope="col">Position</th>
             <th scope="col">Number</th>
+            <th scope="col">Edit</th>
         </tr>
         </thead>
         <tbody id="playerTableBody">
@@ -80,6 +81,7 @@
             </td>
             <td th:text="${player.position}"></td>
             <td th:text="${player.number}"></td>
+            <td><a class="btn btn-primary" th:href="'/editPlayer/' + ${player.id}">Edit</a></td>
         </tr>
         </tbody>
     </table>

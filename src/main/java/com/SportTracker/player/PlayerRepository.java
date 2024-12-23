@@ -46,4 +46,20 @@ public class PlayerRepository {
                 .param("teamId", playerTeamId)
                 .update();
     }
+
+    public void update(Player player){
+        Long playerId = player.getId();
+        String playerName = player.getName();
+        Integer playerNumber = player.getNumber();
+        String playerPosition = player.getPosition();
+        Long playerTeamId = player.getTeamId();
+
+        jdbcClient.sql("UPDATE sport_tracker.player SET name = :name, number = :number, position = :position, teamId = :teamId WHERE id = :id")
+                .param("id", playerId)
+                .param("name", playerName)
+                .param("number", playerNumber)
+                .param("position", playerPosition)
+                .param("teamId", playerTeamId)
+                .update();
+    }
 }

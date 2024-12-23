@@ -72,7 +72,7 @@
                 <tr th:each="game : ${season.games}">
                     <td><a th:text="${game.homeTeam.name}" th:href="'/teamDetails/' + ${game.homeTeam.id}"></a></td>
                     <td>
-                        <a th:text="${game.homeTeamScore} + '-' + ${game.awayTeamScore}" th:href="'/gameDetails/' + ${game.id}"></a>
+                        <a th:text="${game.homeTeamScore} + '  -  ' + ${game.awayTeamScore}" th:href="'/gameDetails/' + ${game.id}"></a>
                     </td>
                     <td><a th:text="${game.awayTeam.name}" th:href="'/teamDetails/' + ${game.awayTeam.id}"></a></td>
                     <td th:text="${game.date}"></td>
