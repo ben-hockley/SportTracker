@@ -83,4 +83,10 @@ public class PlayerController {
         return "redirect:/playerDetails/" + id;
     }
 
+    @GetMapping("/deletePlayer/{id}")
+    public String deletePlayer(Model model, @PathVariable Long id) {
+        playerRepository.deleteById(id);
+        return "redirect:/allPlayers";
+    }
+
 }

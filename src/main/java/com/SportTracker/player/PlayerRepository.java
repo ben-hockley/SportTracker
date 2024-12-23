@@ -62,4 +62,10 @@ public class PlayerRepository {
                 .param("teamId", playerTeamId)
                 .update();
     }
+
+    public void deleteById(Long id){
+        jdbcClient.sql("DELETE FROM sport_tracker.player WHERE id = :id")
+                .param("id", id)
+                .update();
+    }
 }
