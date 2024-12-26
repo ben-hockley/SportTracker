@@ -60,12 +60,24 @@ public class PlayerController {
         // Get the player by id
         Player player = playerRepository.findById(id);
 
+        if (player == null) {
+            String ERROR_MESSAGE = "Player not found";
+            model.addAttribute("errorMessage", ERROR_MESSAGE);
+            return "error";
+        }
+
         // Get the team for the player
         Team team = teamRepository.findById(player.getTeamId());
         League league = leagueRepository.findById(team.getLeagueId());
         model.addAttribute("player", player);
         model.addAttribute("team", team);
         model.addAttribute("league", league);
+
+        List<List<String>> playerStats = playerRepository.getPlayerStats(id);
+
+
+
+
         return "playerDetails";
     }
 

@@ -13,7 +13,7 @@
 
     <link rel="stylesheet" href="/CSS/mainPage.css">
 </head>
-<body onload="loadBoxScore()">
+<body>
 <nav th:replace="fragments/navbar :: navbar"></nav>
 <div class="container text-center">
     <div class="row">
@@ -88,7 +88,7 @@
     <div class="row text-start">
         <div class="col-6 border border-dark">
             <h4 th:text="${homeTeam.name} + ' Passing'"></h4>
-            <p class="d-none" th:text="${game.homePassing}" id="homePassing"></p>
+            <!--<p class="d-none" th:text="${game.homePassing}" id="homePassing"></p>-->
             <table class="table" id="homePassingTable">
                 <thead>
                 <tr>
@@ -102,12 +102,23 @@
                 </tr>
                 </thead>
                 <tbody>
+                <tr th:each="passer : ${homePassing}">
+                    <td th:text="${passer.playerNumber}"></td>
+                    <td>
+                        <a th:text="${passer.playerName}" th:href="'/playerDetails/' + ${passer.playerId}"></a>
+                    </td>
+                    <td th:text="${passer.completions + '-' + passer.attempts}"></td>
+                    <td th:text="${passer.yards}"></td>
+                    <td th:text="${passer.touchdowns}"></td>
+                    <td th:text="${passer.interceptions}"></td>
+                    <td></td>
+                </tr>
                 </tbody>
             </table>
         </div>
         <div class="col-6 border border-dark">
             <h4 th:text="${awayTeam.name} + ' Passing'"></h4>
-            <p class="d-none" th:text="${game.awayPassing}" id="awayPassing"></p>
+            <!--<p class="d-none" th:text="${game.awayPassing}" id="awayPassing"></p>-->
             <table class="table" id="awayPassingTable">
                 <thead>
                 <tr>
@@ -121,6 +132,17 @@
                 </tr>
                 </thead>
                 <tbody>
+                <tr th:each="passer : ${awayPassing}">
+                    <td th:text="${passer.playerNumber}"></td>
+                    <td>
+                        <a th:text="${passer.playerName}" th:href="'/playerDetails/' + ${passer.playerId}"></a>
+                    </td>
+                    <td th:text="${passer.completions + '-' + passer.attempts}"></td>
+                    <td th:text="${passer.yards}"></td>
+                    <td th:text="${passer.touchdowns}"></td>
+                    <td th:text="${passer.interceptions}"></td>
+                    <td></td>
+                </tr>
                 </tbody>
             </table>
         </div>
@@ -129,7 +151,6 @@
     <div class="row text-start">
         <div class="col-6 border border-dark">
             <h4 th:text="${homeTeam.name} + ' Rushing'"></h4>
-            <p class="d-none" th:text="${game.homeRushing}" id="homeRushing"></p>
             <table class="table" id="homeRushingTable">
                 <thead>
                 <tr>
@@ -143,12 +164,22 @@
                 </tr>
                 </thead>
                 <tbody>
+                <tr th:each="rusher : ${homeRushing}">
+                    <td th:text="${rusher.playerNumber}"></td>
+                    <td>
+                        <a th:text="${rusher.playerName}" th:href="'/playerDetails/' + ${rusher.playerId}"></a>
+                    </td>
+                    <td th:text="${rusher.attempts}"></td>
+                    <td th:text="${rusher.yards}"></td>
+                    <td th:text="${rusher.touchdowns}"></td>
+                    <td th:text="${rusher.longest}"></td>
+                    <td></td>
+                </tr>
                 </tbody>
             </table>
         </div>
         <div class="col-6 border border-dark">
             <h4 th:text="${awayTeam.name} + ' Rushing'"></h4>
-            <p class="d-none" th:text="${game.awayRushing}" id="awayRushing"></p>
             <table class="table" id="awayRushingTable">
                 <thead>
                 <tr>
@@ -162,6 +193,17 @@
                 </tr>
                 </thead>
                 <tbody>
+                <tr th:each="rusher : ${awayRushing}">
+                    <td th:text="${rusher.playerNumber}"></td>
+                    <td>
+                        <a th:text="${rusher.playerName}" th:href="'/playerDetails/' + ${rusher.playerId}"></a>
+                    </td>
+                    <td th:text="${rusher.attempts}"></td>
+                    <td th:text="${rusher.yards}"></td>
+                    <td th:text="${rusher.touchdowns}"></td>
+                    <td th:text="${rusher.longest}"></td>
+                    <td></td>
+                </tr>
                 </tbody>
             </table>
         </div>
@@ -170,7 +212,6 @@
     <div class="row text-start">
         <div class="col-6 border border-dark">
             <h4 th:text="${homeTeam.name} + ' Receiving'"></h4>
-            <p class="d-none" th:text="${game.homeReceiving}" id="homeReceiving"></p>
             <table class="table" id="homeReceivingTable">
                 <thead>
                 <tr>
@@ -184,12 +225,22 @@
                 </tr>
                 </thead>
                 <tbody>
+                <tr th:each="receiver : ${homeReceiving}">
+                    <td th:text="${receiver.playerNumber}"></td>
+                    <td>
+                        <a th:text="${receiver.playerName}" th:href="'/playerDetails/' + ${receiver.playerId}"></a>
+                    </td>
+                    <td th:text="${receiver.receptions}"></td>
+                    <td th:text="${receiver.yards}"></td>
+                    <td th:text="${receiver.touchdowns}"></td>
+                    <td th:text="${receiver.longest}"></td>
+                    <td></td>
+                </tr>
                 </tbody>
             </table>
         </div>
         <div class="col-6 border border-dark">
             <h4 th:text="${awayTeam.name} + ' Receiving'"></h4>
-            <p class="d-none" th:text="${game.awayReceiving}" id="awayReceiving"></p>
             <table class="table" id="awayReceivingTable">
                 <thead>
                 <tr>
@@ -203,6 +254,16 @@
                 </tr>
                 </thead>
                 <tbody>
+                <tr th:each="receiver : ${awayReceiving}">
+                    <td th:text="${receiver.playerNumber}"></td>
+                    <td>
+                        <a th:text="${receiver.playerName}" th:href="'/playerDetails/' + ${receiver.playerId}"></a>
+                    </td>
+                    <td th:text="${receiver.receptions}"></td>
+                    <td th:text="${receiver.yards}"></td>
+                    <td th:text="${receiver.touchdowns}"></td>
+                    <td th:text="${receiver.longest}"></td>
+                    <td></td>
                 </tbody>
             </table>
         </div>

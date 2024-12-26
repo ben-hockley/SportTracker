@@ -50,4 +50,50 @@ create table if not exists player (
     teamId int,
     position varchar(3) not null,
     number int
-)
+);
+
+create table if not exists passingStats (
+    id int auto_increment primary key,
+    gameId int not null,
+    homeOrAway varchar(4) not null,
+
+    playerId int not null,
+    playerNumber int not null,
+    playerName varchar(255) not null,
+
+    attempts int not null,
+    completions int not null,
+    yards int not null,
+    touchdowns int not null,
+    interceptions int not null
+);
+
+create table if not exists rushingStats (
+    id int auto_increment primary key,
+    gameId int not null,
+    homeOrAway varchar(4) not null,
+
+    playerId int not null,
+    playerNumber int not null,
+    playerName varchar(255) not null,
+
+    attempts int not null,
+    yards int not null,
+    touchdowns int not null,
+    longest int not null
+);
+
+create table if not exists receivingStats(
+    id int auto_increment primary key,
+    gameId int not null,
+    homeOrAway varchar(4) not null,
+
+    playerId int not null,
+    playerNumber int not null,
+    playerName varchar(255) not null,
+
+    receptions int not null,
+    yards int not null,
+    touchdowns int not null,
+    longest int not null
+);

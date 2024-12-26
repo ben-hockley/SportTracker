@@ -1,3 +1,5 @@
+
+/*
 function removeItemAll(arr, value) {
     var i = 0;
     while (i < arr.length) {
@@ -72,3 +74,5 @@ function loadBoxScore(){
     displayStats(homeReceivingRaw, homeReceivingTable)
     displayStats(awayReceivingRaw, awayReceivingTable)
 }
+
+ */
