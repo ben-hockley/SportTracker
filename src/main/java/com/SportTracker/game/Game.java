@@ -1,6 +1,5 @@
 package com.SportTracker.game;
 
-import com.SportTracker.team.TeamRepository;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

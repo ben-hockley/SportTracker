@@ -48,7 +48,7 @@ public class PlayerController {
     }
 
     @PostMapping("/addPlayer")
-    public String addPlayer(Model model, Player player) {
+    public String addPlayer(Player player) {
         playerRepository.save(player);
         return "redirect:/allPlayers";
     }
@@ -85,13 +85,13 @@ public class PlayerController {
     }
 
     @PostMapping("/updatePlayer/{id}")
-    public String updatePlayer(Model model, @PathVariable Long id, Player player) {
+    public String updatePlayer(@PathVariable Long id, Player player) {
         playerRepository.update(player);
         return "redirect:/playerDetails/" + id;
     }
 
     @GetMapping("/deletePlayer/{id}")
-    public String deletePlayer(Model model, @PathVariable Long id) {
+    public String deletePlayer(@PathVariable Long id) {
         playerRepository.deleteById(id);
         return "redirect:/allPlayers";
     }

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Controller
 public class LeagueController {
@@ -62,7 +63,7 @@ public class LeagueController {
             for (GameWithTeams game : season.getGames()){
                 for (TeamSeasonRecord record : standings) {
                     // if a record contains one of the teams, then update that record.
-                        if (record.getTeam().getId() == game.getHomeTeam().getId()) {
+                        if (Objects.equals(record.getTeam().getId(), game.getHomeTeam().getId())) {
 
                             System.out.println("Home team: " + game.getHomeTeam().getName());
 
@@ -71,12 +72,12 @@ public class LeagueController {
 
                             if (game.getHomeTeamScore() > game.getAwayTeamScore()) {
                                 record.setWins(record.getWins() + 1);
-                            } else if (game.getHomeTeamScore() == game.getAwayTeamScore()){
+                            } else if (game.getHomeTeamScore().equals(game.getAwayTeamScore())){
                                 record.setTies(record.getTies() + 1);
                             } else {
                                 record.setLosses(record.getLosses() + 1);
                             }
-                        } else if (record.getTeam().getId() == game.getAwayTeam().getId()) {
+                        } else if (Objects.equals(record.getTeam().getId(), game.getAwayTeam().getId())) {
 
                             System.out.println("Away team: " + game.getAwayTeam().getName());
 
@@ -85,7 +86,7 @@ public class LeagueController {
 
                             if (game.getAwayTeamScore() > game.getHomeTeamScore()) {
                                 record.setWins(record.getWins() + 1);
-                            } else if (game.getHomeTeamScore() == game.getAwayTeamScore()){
+                            } else if (game.getHomeTeamScore().equals(game.getAwayTeamScore())){
                                 record.setTies(record.getTies() + 1);
                             } else {
                                 record.setLosses(record.getLosses() + 1);
@@ -96,11 +97,11 @@ public class LeagueController {
 
             //sort standings, by wins first, then ties, then points scored, then least points against.
             standings.sort((a, b) -> {
-                if (a.getWins() != b.getWins()) {
+                if (!Objects.equals(a.getWins(), b.getWins())) {
                     return b.getWins() - a.getWins();
-                } else if (a.getTies() != b.getTies()) {
+                } else if (!Objects.equals(a.getTies(), b.getTies())) {
                     return b.getTies() - a.getTies();
-                } else if (a.getPointsFor() != b.getPointsFor()) {
+                } else if (!Objects.equals(a.getPointsFor(), b.getPointsFor())) {
                     return b.getPointsFor() - a.getPointsFor();
                 } else {
                     return a.getPointsAgainst() - b.getPointsAgainst();

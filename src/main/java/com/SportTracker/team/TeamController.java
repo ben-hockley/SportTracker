@@ -45,7 +45,7 @@ public class TeamController {
     }
 
     @PostMapping("/addTeam")
-    public String addTeam(Model model, Team team) {
+    public String addTeam(Team team) {
         teamRepository.save(team);
         return "redirect:/allTeams";
     }

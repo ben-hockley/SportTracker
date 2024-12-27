@@ -66,7 +66,7 @@ public class GameController {
     }
 
     @PostMapping("/addGame")
-    public String addGame(Model model, Game game) {
+    public String addGame(Game game) {
         gameRepository.save(game);
         return "redirect:/allGames";
     }

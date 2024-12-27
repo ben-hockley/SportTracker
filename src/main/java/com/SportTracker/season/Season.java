@@ -1,6 +1,5 @@
 package com.SportTracker.season;
 
-import com.SportTracker.game.Game;
 import com.SportTracker.game.GameWithTeams;
 import com.SportTracker.team.TeamSeasonRecord;
 import lombok.Getter;

@@ -315,11 +315,4 @@ public class GameRepository {
         }
         return gamesWithTeams;
     }
-
-    public List<Integer> findGameIdsBySeasonId(Long seasonId) {
-        return jdbcClient.sql("SELECT id FROM sport_tracker.game WHERE seasonId = :seasonId")
-                .param("seasonId", seasonId)
-                .query(Integer.class)
-                .list();
-    }
 }
