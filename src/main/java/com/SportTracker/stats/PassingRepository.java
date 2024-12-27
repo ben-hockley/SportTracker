@@ -20,11 +20,16 @@ public class PassingRepository {
     }
 
     public List<Passing> findByGameIdAndHomeOrAway(Long gameId, String homeOrAway) {
-        return jdbcClient.sql("SELECT * FROM sport_tracker.passingstats WHERE gameId = :gameId AND homeOrAway = :homeOrAway")
+        List<Passing> passingStats =
+                jdbcClient.sql("SELECT * FROM sport_tracker.passingstats WHERE gameId = :gameId AND homeOrAway = :homeOrAway")
                 .param("gameId", gameId)
                 .param("homeOrAway", homeOrAway)
                 .query(Passing.class)
                 .list();
+
+        // sort passing stats in descending order by yards
+        passingStats.sort((a, b) -> b.getYards() - a.getYards());
+        return passingStats;
     }
 
     public List<Passing> getPassingLeadersBySeason(Long seasonId) {

@@ -1,7 +1,5 @@
 package com.SportTracker.player;
 
-import com.SportTracker.game.Game;
-import com.SportTracker.game.GameWithTeams;
 import com.SportTracker.league.League;
 import com.SportTracker.league.LeagueRepository;
 import com.SportTracker.team.Team;
@@ -30,7 +28,7 @@ public class PlayerController {
     @GetMapping("/allPlayers")
     public String allPlayers(Model model) {
         List<Player> allPlayersInDatabase = playerRepository.findAll();
-        List<PlayerWithTeam> allPlayersWithTeam = new ArrayList<PlayerWithTeam>();
+        List<PlayerWithTeam> allPlayersWithTeam = new ArrayList<>();
         for (Player player : allPlayersInDatabase) {
             Team team = teamRepository.findById(player.getTeamId());
             allPlayersWithTeam.add(new PlayerWithTeam(player, team));
@@ -39,14 +37,14 @@ public class PlayerController {
         model.addAttribute("players", allPlayersWithTeam);
         model.addAttribute("teams", teamRepository.findAll());
 
-        return "allPlayers";
+        return "/player/allPlayers";
     }
 
     @GetMapping("/newPlayer")
     public String newPlayer(Model model) {
         model.addAttribute("teams", teamRepository.findAll());
         model.addAttribute("player", new Player());
-        return "newPlayer";
+        return "/player/newPlayer";
     }
 
     @PostMapping("/addPlayer")
@@ -73,12 +71,9 @@ public class PlayerController {
         model.addAttribute("team", team);
         model.addAttribute("league", league);
 
-        List<List<String>> playerStats = playerRepository.getPlayerStats(id);
 
 
-
-
-        return "playerDetails";
+        return "/player/playerDetails";
     }
 
     @GetMapping("/editPlayer/{id}")
@@ -86,7 +81,7 @@ public class PlayerController {
         Player player = playerRepository.findById(id);
         model.addAttribute("player", player);
         model.addAttribute("teams", teamRepository.findAll());
-        return "editPlayer";
+        return "/player/editPlayer";
     }
 
     @PostMapping("/updatePlayer/{id}")

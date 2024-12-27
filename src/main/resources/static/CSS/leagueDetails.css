@@ -1,0 +1,8 @@
+.passingLeaders, .rushingLeaders, .receivingLeaders{
+    height:25vh;
+    overflow: auto;
+}
+.standings{
+    height:75vh;
+    overflow: auto;
+}

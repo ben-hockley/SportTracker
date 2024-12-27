@@ -52,7 +52,7 @@ public class GameController {
 
         model.addAttribute("games", allGamesWithTeams);
 
-        return "allGames";
+        return "/game/allGames";
     }
 
     @GetMapping("/newGame")
@@ -62,7 +62,7 @@ public class GameController {
         model.addAttribute("seasons", seasonRepository.findAll());
         model.addAttribute("leagues", leagueRepository.findAll());
         model.addAttribute("game", new Game());
-        return "newGame";
+        return "/game/newGame";
     }
 
     @PostMapping("/addGame")
@@ -98,6 +98,6 @@ public class GameController {
         model.addAttribute("awayRushing", awayRushing);
         model.addAttribute("homeReceiving", homeReceiving);
         model.addAttribute("awayReceiving", awayReceiving);
-        return "gameDetails";
+        return "/game/gameDetails";
     }
 }

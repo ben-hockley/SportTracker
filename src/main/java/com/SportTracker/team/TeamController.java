@@ -34,14 +34,14 @@ public class TeamController {
     public String allTeams(Model model) {
         model.addAttribute("teams", teamRepository.findAll());
         model.addAttribute("leagues", leagueRepository.findAll());
-        return "allTeams";
+        return "/team/allTeams";
     }
 
     @GetMapping("/newTeam")
     public String newTeam(Model model) {
         model.addAttribute("team", new Team());
         model.addAttribute("leagues", leagueRepository.findAll());
-        return "newTeam";
+        return "/team/newTeam";
     }
 
     @PostMapping("/addTeam")
@@ -76,6 +76,6 @@ public class TeamController {
 
         model.addAttribute("team", team);
         model.addAttribute("players", players);
-        return "teamDetails";
+        return "/team/teamDetails";
     }
 }

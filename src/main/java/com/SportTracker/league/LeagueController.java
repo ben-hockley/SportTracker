@@ -1,13 +1,10 @@
 package com.SportTracker.league;
 
-import com.SportTracker.game.Game;
 import com.SportTracker.game.GameRepository;
 import com.SportTracker.game.GameWithTeams;
-import com.SportTracker.player.Player;
 import com.SportTracker.season.Season;
 import com.SportTracker.season.SeasonRepository;
-import com.SportTracker.stats.Passing;
-import com.SportTracker.stats.PassingRepository;
+import com.SportTracker.stats.*;
 import com.SportTracker.team.Team;
 import com.SportTracker.team.TeamRepository;
 import com.SportTracker.team.TeamSeasonRecord;
@@ -27,13 +24,17 @@ public class LeagueController {
     private final GameRepository gameRepository;
     private final TeamRepository teamRepository;
     private final PassingRepository passingRepository;
+    private final RushingRepository rushingRepository;
+    private final ReceivingRepository receivingRepository;
 
-    public LeagueController(LeagueRepository leagueRepository, SeasonRepository seasonRepository, GameRepository gameRepository, TeamRepository teamRepository, PassingRepository passingRepository) {
+    public LeagueController(LeagueRepository leagueRepository, SeasonRepository seasonRepository, GameRepository gameRepository, TeamRepository teamRepository, PassingRepository passingRepository, RushingRepository rushingRepository, ReceivingRepository receivingRepository) {
         this.leagueRepository = leagueRepository;
         this.seasonRepository = seasonRepository;
         this.gameRepository = gameRepository;
         this.teamRepository = teamRepository;
         this.passingRepository = passingRepository;
+        this.rushingRepository = rushingRepository;
+        this.receivingRepository = receivingRepository;
     }
     @GetMapping("/league/{id}")
     public String viewLeague(Model model, @PathVariable Long id) {
@@ -111,16 +112,24 @@ public class LeagueController {
         model.addAttribute("seasons", seasons);
 
         // GET Stat leaders for different stat categories for the season (passing, rushing, receiving)
-
-        //test getting passing leaders
-
         List<List<Passing>> passingLeadersBySeason = new ArrayList<>();
+        List<List<Rushing>> rushingLeadersBySeason = new ArrayList<>();
+        List<List<Receiving>> receivingLeadersBySeason = new ArrayList<>();
 
         for (Season season : seasons) {
             List<Passing> passingLeaders = passingRepository.getPassingLeadersBySeason(season.getId());
+            List<Rushing> rushingLeaders = rushingRepository.getRushingLeadersBySeason(season.getId());
+            List<Receiving> receivingLeaders = receivingRepository.getReceivingLeadersBySeason(season.getId());
+
             passingLeadersBySeason.add(passingLeaders);
+            rushingLeadersBySeason.add(rushingLeaders);
+            receivingLeadersBySeason.add(receivingLeaders);
         }
+
         model.addAttribute("passingLeadersBySeason", passingLeadersBySeason);
-        return "leagueDetails";
+        model.addAttribute("rushingLeadersBySeason", rushingLeadersBySeason);
+        model.addAttribute("receivingLeadersBySeason", receivingLeadersBySeason);
+
+        return "/league/leagueDetails";
     }
 }

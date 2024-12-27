@@ -20,9 +20,31 @@ public class RushingRepository {
     }
 
     public List<Rushing> findByGameIdAndHomeOrAway(Long gameId, String homeOrAway) {
-        return jdbcClient.sql("SELECT * FROM sport_tracker.rushingstats WHERE gameId = :gameId AND homeOrAway = :homeOrAway")
+        List<Rushing> rushingStats =
+                jdbcClient.sql("SELECT * FROM sport_tracker.rushingstats WHERE gameId = :gameId AND homeOrAway = :homeOrAway")
                 .param("gameId", gameId)
                 .param("homeOrAway", homeOrAway)
+                .query(Rushing.class)
+                .list();
+
+        // sort rushing stats in descending order by yards
+        rushingStats.sort((a, b) -> b.getYards() - a.getYards());
+        return rushingStats;
+    }
+
+    public List<Rushing> getRushingLeadersBySeason(Long seasonId) {
+        return jdbcClient.sql("SELECT playerId, " +
+                        "seasonId, " +
+                        "playerName, " +
+                        "SUM(yards) as yards, " +
+                        "SUM(attempts) as attempts, " +
+                        "SUM(touchdowns) as touchdowns, " +
+                        "MAX(longest) as longest " +
+                        "FROM sport_tracker.rushingstats " +
+                        "WHERE seasonId = :seasonId " +
+                        "GROUP BY playerId " +
+                        "ORDER BY yards DESC")
+                .param("seasonId", seasonId)
                 .query(Rushing.class)
                 .list();
     }

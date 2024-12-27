@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.6.0/css/fontawesome.min.css" integrity="sha384-NvKbDTEnL+A8F/AA5Tc5kmMLSJHUO868P+lDtTpJIeQdGYaUIuLr4lVGOEA1OcMy" crossorigin="anonymous">
 
     <link rel="stylesheet" href="/CSS/mainPage.css">
+    <link rel="stylesheet" href="/CSS/leagueDetails.css">
 </head>
 <body onload="showSeasonGames()">
 <nav th:replace="fragments/navbar :: navbar"></nav>
@@ -28,7 +29,9 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-5 container border border-dark">
+
+        <!-- Standings -->
+        <div class="col-6 container border border-dark standings">
             <div class="row">
                     <h2>Standings</h2>
                     <table class="table">
@@ -57,6 +60,9 @@
                     </table>
                 </div>
             </div>
+
+        <!-- Recent Games -->
+        <!--
         <div class="col-4 container text-center border border-dark">
             <h2>Recent Games</h2>
             <table class="table table-striped" id="recentGames">
@@ -80,23 +86,76 @@
                 </tbody>
             </table>
         </div>
-        <div class="col-3 container text-start border border-black">
-            <h2 class="text-center">Stat Leaders</h2>
-            <h4>Passing Yards</h4>
-            <table class="table table-striped" id="statLeaders">
+
+        -->
+        <!-- Stat Leaders -->
+        <div class="col-6 container text-start border border-black">
+            <div class="passingLeaders border border-dark">
+            <table class="table table-striped" id="passingLeaders">
                 <thead>
                 <tr>
-                    <th>Player</th>
+                    <th>Passing</th>
+                    <th>C-A</th>
                     <th>YDS</th>
+                    <th>TD</th>
+                    <th>INT</th>
                 </tr>
                 </thead>
                 <tbody th:each="passingLeaders : ${passingLeadersBySeason}">
                 <tr th:each="quarterback : ${passingLeaders}" th:class="${quarterback.seasonId}">
                     <td><a th:text="${quarterback.playerName}" th:href="'/playerDetails/' + ${quarterback.playerId}"></a></td>
+                    <td th:text="${quarterback.completions + '/' + quarterback.attempts}"></td>
                     <td th:text="${quarterback.yards}"></td>
+                    <td th:text="${quarterback.touchdowns}"></td>
+                    <td th:text="${quarterback.interceptions}"></td>
                 </tr>
                 </tbody>
             </table>
+            </div>
+            <div class="rushingLeaders border border-dark">
+                <table class="table table-striped" id="rushingLeaders">
+                    <thead>
+                    <tr>
+                        <th>Rushing</th>
+                        <th>ATT</th>
+                        <th>YDS</th>
+                        <th>TD</th>
+                        <th>LNG</th>
+                    </tr>
+                    </thead>
+                    <tbody th:each="rushingLeaders : ${rushingLeadersBySeason}">
+                    <tr th:each="runningBack : ${rushingLeaders}" th:class="${runningBack.seasonId}">
+                        <td><a th:text="${runningBack.playerName}" th:href="'/playerDetails/' + ${runningBack.playerId}"></a></td>
+                        <td th:text="${runningBack.attempts}"></td>
+                        <td th:text="${runningBack.yards}"></td>
+                        <td th:text="${runningBack.touchdowns}"></td>
+                        <td th:text="${runningBack.longest}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="receivingLeaders border border-dark">
+                <table class="table table-striped" id="receivingLeaders">
+                    <thead>
+                    <tr>
+                        <th>Receiving</th>
+                        <th>REC</th>
+                        <th>YDS</th>
+                        <th>TD</th>
+                        <th>LNG</th>
+                    </tr>
+                    </thead>
+                    <tbody th:each="receivingLeaders : ${receivingLeadersBySeason}">
+                    <tr th:each="receiver : ${receivingLeaders}" th:class="${receiver.seasonId}">
+                        <td><a th:text="${receiver.playerName}" th:href="'/playerDetails/' + ${receiver.playerId}"></a></td>
+                        <td th:text="${receiver.receptions}"></td>
+                        <td th:text="${receiver.yards}"></td>
+                        <td th:text="${receiver.touchdowns}"></td>
+                        <td th:text="${receiver.longest}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>
