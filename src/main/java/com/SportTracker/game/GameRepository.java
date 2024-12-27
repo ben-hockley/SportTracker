@@ -120,7 +120,8 @@ public class GameRepository {
             Integer interceptions = parseInt(stats[6]);
 
 
-            jdbcClient.sql("INSERT INTO sport_tracker.passingstats (gameId, playerId, homeOrAway, playerNumber, playerName, completions, attempts, yards, touchdowns, interceptions) VALUES (:gameId, :playerId, :homeOrAway, :playerNumber, :playerName, :completions, :attempts, :yards, :touchdowns, :interceptions)")
+            jdbcClient.sql("INSERT INTO sport_tracker.passingstats (seasonId ,gameId, playerId, homeOrAway, playerNumber, playerName, completions, attempts, yards, touchdowns, interceptions) VALUES (:seasonId ,:gameId, :playerId, :homeOrAway, :playerNumber, :playerName, :completions, :attempts, :yards, :touchdowns, :interceptions)")
+                    .param("seasonId", seasonId)
                     .param("gameId", gameId)
                     .param("homeOrAway", "home")
                     .param("playerId", playerId)
@@ -150,7 +151,8 @@ public class GameRepository {
             Integer interceptions = parseInt(stats[6]);
 
 
-            jdbcClient.sql("INSERT INTO sport_tracker.passingstats (gameId, playerId, homeOrAway, playerNumber, playerName, completions, attempts, yards, touchdowns, interceptions) VALUES (:gameId, :playerId, :homeOrAway, :playerNumber, :playerName, :completions, :attempts, :yards, :touchdowns, :interceptions)")
+            jdbcClient.sql("INSERT INTO sport_tracker.passingstats (seasonId ,gameId, playerId, homeOrAway, playerNumber, playerName, completions, attempts, yards, touchdowns, interceptions) VALUES (:seasonId ,:gameId, :playerId, :homeOrAway, :playerNumber, :playerName, :completions, :attempts, :yards, :touchdowns, :interceptions)")
+                    .param("seasonId", seasonId)
                     .param("gameId", gameId)
                     .param("homeOrAway", "away")
                     .param("playerId", playerId)
@@ -184,7 +186,8 @@ public class GameRepository {
             Integer td = parseInt(stats[5]);
             Integer longest = parseInt(stats[6]);
 
-            jdbcClient.sql("INSERT INTO sport_tracker.rushingstats (gameId, playerId, homeOrAway, playerNumber, playerName, attempts, yards, touchdowns, longest) VALUES (:gameId, :playerId, :homeOrAway, :playerNumber, :playerName, :attempts, :yards, :touchdowns, :longest)")
+            jdbcClient.sql("INSERT INTO sport_tracker.rushingstats (seasonId,gameId, playerId, homeOrAway, playerNumber, playerName, attempts, yards, touchdowns, longest) VALUES (:seasonId,:gameId, :playerId, :homeOrAway, :playerNumber, :playerName, :attempts, :yards, :touchdowns, :longest)")
+                    .param("seasonId", seasonId)
                     .param("gameId", gameId)
                     .param("homeOrAway", "home")
                     .param("playerId", playerId)
@@ -212,7 +215,8 @@ public class GameRepository {
             Integer td = parseInt(stats[5]);
             Integer longest = parseInt(stats[6]);
 
-            jdbcClient.sql("INSERT INTO sport_tracker.rushingstats (gameId, playerId, homeOrAway, playerNumber, playerName, attempts, yards, touchdowns, longest) VALUES (:gameId, :playerId, :homeOrAway, :playerNumber, :playerName, :attempts, :yards, :touchdowns, :longest)")
+            jdbcClient.sql("INSERT INTO sport_tracker.rushingstats (seasonId,gameId, playerId, homeOrAway, playerNumber, playerName, attempts, yards, touchdowns, longest) VALUES (:seasonId,:gameId, :playerId, :homeOrAway, :playerNumber, :playerName, :attempts, :yards, :touchdowns, :longest)")
+                    .param("seasonId", seasonId)
                     .param("gameId", gameId)
                     .param("homeOrAway", "away")
                     .param("playerId", playerId)
@@ -244,7 +248,8 @@ public class GameRepository {
             Integer td = parseInt(stats[5]);
             Integer longest = parseInt(stats[6]);
 
-            jdbcClient.sql("INSERT INTO sport_tracker.receivingstats (gameId, playerId, homeOrAway, playerNumber, playerName, receptions, yards, touchdowns, longest) VALUES (:gameId, :playerId, :homeOrAway, :playerNumber, :playerName, :receptions, :yards, :touchdowns, :longest)")
+            jdbcClient.sql("INSERT INTO sport_tracker.receivingstats (seasonId,gameId, playerId, homeOrAway, playerNumber, playerName, receptions, yards, touchdowns, longest) VALUES (:seasonId,:gameId, :playerId, :homeOrAway, :playerNumber, :playerName, :receptions, :yards, :touchdowns, :longest)")
+                    .param("seasonId", seasonId)
                     .param("gameId", gameId)
                     .param("homeOrAway", "home")
                     .param("playerId", playerId)
@@ -271,7 +276,8 @@ public class GameRepository {
             Integer td = parseInt(stats[5]);
             Integer longest = parseInt(stats[6]);
 
-            jdbcClient.sql("INSERT INTO sport_tracker.receivingstats (gameId, playerId, homeOrAway, playerNumber, playerName, receptions, yards, touchdowns, longest) VALUES (:gameId, :playerId, :homeOrAway, :playerNumber, :playerName, :receptions, :yards, :touchdowns, :longest)")
+            jdbcClient.sql("INSERT INTO sport_tracker.receivingstats (seasonId,gameId, playerId, homeOrAway, playerNumber, playerName, receptions, yards, touchdowns, longest) VALUES (:seasonId,:gameId, :playerId, :homeOrAway, :playerNumber, :playerName, :receptions, :yards, :touchdowns, :longest)")
+                    .param("seasonId", seasonId)
                     .param("gameId", gameId)
                     .param("homeOrAway", "away")
                     .param("playerId", playerId)
@@ -308,5 +314,12 @@ public class GameRepository {
             gamesWithTeams.add(new GameWithTeams(game, homeTeam, awayTeam));
         }
         return gamesWithTeams;
+    }
+
+    public List<Integer> findGameIdsBySeasonId(Long seasonId) {
+        return jdbcClient.sql("SELECT id FROM sport_tracker.game WHERE seasonId = :seasonId")
+                .param("seasonId", seasonId)
+                .query(Integer.class)
+                .list();
     }
 }

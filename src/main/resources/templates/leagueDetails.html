@@ -90,10 +90,10 @@
                     <th>YDS</th>
                 </tr>
                 </thead>
-                <tbody th:each="passingLeaders : ${passingYardsLeadersBySeason}" class="showThis">
-                <tr th:each="quarterback : ${passingLeaders}">
+                <tbody th:each="passingLeaders : ${passingLeadersBySeason}">
+                <tr th:each="quarterback : ${passingLeaders}" th:class="${quarterback.seasonId}">
                     <td><a th:text="${quarterback.playerName}" th:href="'/playerDetails/' + ${quarterback.playerId}"></a></td>
-                    <td th:text="${quarterback.playerStat}"></td>
+                    <td th:text="${quarterback.yards}"></td>
                 </tr>
                 </tbody>
             </table>

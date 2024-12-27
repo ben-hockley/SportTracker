@@ -7,6 +7,7 @@ import lombok.Setter;
 @Setter
 public class Passing {
     private long id;
+    private long seasonId;
     private long gameId;
     private String homeOrAway;
 

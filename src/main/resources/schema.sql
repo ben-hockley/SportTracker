@@ -54,6 +54,7 @@ create table if not exists player (
 
 create table if not exists passingStats (
     id int auto_increment primary key,
+    seasonId int not null,
     gameId int not null,
     homeOrAway varchar(4) not null,
 
@@ -70,6 +71,7 @@ create table if not exists passingStats (
 
 create table if not exists rushingStats (
     id int auto_increment primary key,
+    seasonId int not null,
     gameId int not null,
     homeOrAway varchar(4) not null,
 
@@ -85,6 +87,7 @@ create table if not exists rushingStats (
 
 create table if not exists receivingStats(
     id int auto_increment primary key,
+    seasonId int not null,
     gameId int not null,
     homeOrAway varchar(4) not null,
 

@@ -26,4 +26,23 @@ public class PassingRepository {
                 .query(Passing.class)
                 .list();
     }
+
+    public List<Passing> getPassingLeadersBySeason(Long seasonId) {
+        return jdbcClient.sql("SELECT playerId, " +
+                        "seasonId, " +
+                        "playerName, " +
+                        "SUM(yards) as yards, " +
+                        "SUM(attempts) as attempts, " +
+                        "SUM(completions) as completions, " +
+                        "SUM(touchdowns) as touchdowns, " +
+                        "SUM(interceptions) as interceptions " +
+                        "FROM sport_tracker.passingstats " +
+                        "WHERE seasonId = :seasonId " +
+                        "GROUP BY playerId " +
+                        "ORDER BY yards DESC")
+                .param("seasonId", seasonId)
+                .query(Passing.class)
+                .list();
+    }
+
 }
