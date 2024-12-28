@@ -34,6 +34,10 @@ function setSelectedAwayTeam() {
     document.getElementById("awayTeamName").innerHTML = awayTeamName;
     document.getElementById("awayTeamScoreLabel").innerHTML = awayTeamName + " Score";
 }
+function setSelectedTeams() {
+    setSelectedHomeTeam();
+    setSelectedAwayTeam();
+}
 
 function showAddPlayerStatsForm() {
     filterPlayers();
