@@ -12,11 +12,12 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.6.0/css/fontawesome.min.css" integrity="sha384-NvKbDTEnL+A8F/AA5Tc5kmMLSJHUO868P+lDtTpJIeQdGYaUIuLr4lVGOEA1OcMy" crossorigin="anonymous">
 
     <link rel="stylesheet" href="/CSS/mainPage.css">
+    <link rel="stylesheet" href="/CSS/playerDetails.css">
 </head>
 <body>
 <nav th:replace="fragments/navbar :: navbar"></nav>
 <div class="container text-center">
-    <div class="row border border-dark">
+    <div class="row border border-dark rounded">
         <div class="col-1 m-auto">
             <a th:href="'/teamDetails/' + ${team.id}"><img th:src="${team.logoUrl}" th:alt="${team.name} + '\'s logo'" class="w-100"></a>
         </div>
@@ -29,6 +30,47 @@
         <div class="col-3 m-auto">
             <a th:href="'/editPlayer/' + ${player.id}" class="btn btn-primary">Edit Player</a>
             <a th:href="'/deletePlayer/' + ${player.id}" class="btn btn-danger">Delete Player</a>
+        </div>
+    </div>
+    <div class="row border border-dark mt-2 p-1 rounded" th:if="${player.position.equals('QB') || player.position.equals('RB') || player.position.equals('WR') || player.position.equals('TE')}">
+        <div class="row">
+            <h4>Career Stats</h4>
+        </div>
+        <div class="statBox">
+            <div>
+                <h5>Games Played</h5>
+                <p th:text="${games.size()}"></p>
+            </div>
+            <div>
+                <h5>
+                    <span th:if="${player.position.equals('QB')}">CMP - ATT</span>
+                    <span th:if="${player.position.equals('RB')}">Attempts</span>
+                    <span th:if="${player.position.equals('WR') || player.position.equals('TE')}">Receptions</span>
+                </h5>
+                <p>
+                    <span th:if="${player.position.equals('QB')}" th:text="${careerStats.completions} + ' - ' + ${careerStats.attempts}"></span>
+                    <span th:if="${player.position.equals('RB')}" th:text="${careerStats.attempts}"></span>
+                    <span th:if="${player.position.equals('WR') || player.position.equals('TE')}" th:text="${careerStats.receptions}"></span>
+                </p>
+            </div>
+            <div>
+                <h5>Yards</h5>
+                <p th:text="${careerStats.yards}"></p>
+            </div>
+            <div>
+                <h5>Touchdowns</h5>
+                <p th:text="${careerStats.touchdowns}"></p>
+            </div>
+            <div>
+                <h5>
+                    <span th:if="${player.position.equals('QB')}">Interceptions</span>
+                    <span th:if="${player.position.equals('RB') || player.position.equals('WR') || player.position.equals('TE')}">Longest</span>
+                </h5>
+                <p>
+                    <span th:if="${player.position.equals('QB')}" th:text="${careerStats.interceptions}"></span>
+                    <span th:if="${player.position.equals('RB') || player.position.equals('WR') || player.position.equals('TE')}" th:text="${careerStats.longest}"></span>
+                </p>
+            </div>
         </div>
     </div>
     <div class="row text-start">
@@ -101,6 +143,10 @@
                     </td>
                 </tbody>
             </table>
+            </div>
+            <div class="col-6">
+                <h4>Biography</h4>
+            </div>
         </div>
     </div>
 </div>

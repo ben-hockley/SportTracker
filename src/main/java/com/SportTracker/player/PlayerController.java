@@ -90,10 +90,13 @@ public class PlayerController {
 
         if (player.getPosition().equals("QB")) {
             model.addAttribute("stats", passingRepository.findByPlayerId(player.getId()));
+            model.addAttribute("careerStats", passingRepository.getCareerStats(player.getId()));
         } else if (player.getPosition().equals("RB")) {
             model.addAttribute("stats", rushingRepository.findByPlayerId(player.getId()));
-        } else if (player.getPosition().equals("WR")) {
+            model.addAttribute("careerStats", rushingRepository.getCareerStats(player.getId()));
+        } else if (player.getPosition().equals("WR") || player.getPosition().equals("TE")) {
             model.addAttribute("stats", receivingRepository.findByPlayerId(player.getId()));
+            model.addAttribute("careerStats", receivingRepository.getCareerStats(player.getId()));
         }
 
         model.addAttribute("games", games);

@@ -50,6 +50,34 @@ public class PassingRepository {
                 .list();
     }
 
+    public Passing getCareerStats(Long playerId) {
+
+        try {
+            return jdbcClient.sql("SELECT playerId, " +
+                            "playerName, " +
+                            "SUM(yards) as yards, " +
+                            "SUM(attempts) as attempts, " +
+                            "SUM(completions) as completions, " +
+                            "SUM(touchdowns) as touchdowns, " +
+                            "SUM(interceptions) as interceptions " +
+                            "FROM sport_tracker.passingstats " +
+                            "WHERE playerId = :playerId")
+                    .param("playerId", playerId)
+                    .query(Passing.class)
+                    .single();
+        } catch (Exception e) {
+            Passing emptyStats = new Passing();
+            emptyStats.setPlayerId(playerId);
+            emptyStats.setPlayerName("No stats found");
+            emptyStats.setYards(0);
+            emptyStats.setAttempts(0);
+            emptyStats.setCompletions(0);
+            emptyStats.setTouchdowns(0);
+            emptyStats.setInterceptions(0);
+            return emptyStats;
+        }
+    }
+
     public List<Passing> findByPlayerId(Long playerId) {
         return jdbcClient.sql("SELECT * FROM sport_tracker.passingstats WHERE playerId = :playerId")
                 .param("playerId", playerId)

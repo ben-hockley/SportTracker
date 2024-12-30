@@ -1,10 +1,12 @@
 package com.SportTracker.stats;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
+@NoArgsConstructor
 public class Receiving {
     private long id;
     private long seasonId;

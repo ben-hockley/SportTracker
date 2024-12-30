@@ -55,4 +55,30 @@ public class RushingRepository {
                 .query(Rushing.class)
                 .list();
     }
+
+    public Rushing getCareerStats(Long playerId) {
+        try {
+            return jdbcClient.sql("SELECT playerId, " +
+                            "playerName, " +
+                            "SUM(yards) as yards, " +
+                            "SUM(attempts) as attempts, " +
+                            "SUM(touchdowns) as touchdowns, " +
+                            "MAX(longest) as longest " +
+                            "FROM sport_tracker.rushingstats " +
+                            "WHERE playerId = :playerId " +
+                            "GROUP BY playerId")
+                    .param("playerId", playerId)
+                    .query(Rushing.class)
+                    .single();
+        } catch (Exception e) {
+            Rushing emptyStats = new Rushing();
+            emptyStats.setPlayerId(playerId);
+            emptyStats.setPlayerName("Unknown");
+            emptyStats.setYards(0);
+            emptyStats.setTouchdowns(0);
+            emptyStats.setAttempts(0);
+            emptyStats.setLongest(0);
+            return emptyStats;
+        }
+    }
 }
