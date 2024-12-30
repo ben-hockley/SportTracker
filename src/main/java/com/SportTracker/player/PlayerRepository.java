@@ -39,11 +39,20 @@ public class PlayerRepository {
         String playerPosition = player.getPosition();
         Long playerTeamId = player.getTeamId();
 
-        jdbcClient.sql("INSERT INTO sport_tracker.player (name, number, position, teamId) VALUES (:name, :number, :position, :teamId)")
+        Integer recruitYear = player.getRecruitYear();
+        Integer recruitStars = player.getRecruitStars();
+        Integer draftYear = player.getDraftYear();
+        Integer draftPick = player.getDraftPick();
+
+        jdbcClient.sql("INSERT INTO sport_tracker.player (name, number, position, teamId, recruitYear, recruitStars, draftYear, draftPick) VALUES (:name, :number, :position, :teamId, :recruitYear, :recruitStars, :draftYear, :draftPick)")
                 .param("name", playerName)
                 .param("number", playerNumber)
                 .param("position", playerPosition)
                 .param("teamId", playerTeamId)
+                .param("recruitYear", recruitYear)
+                .param("recruitStars", recruitStars)
+                .param("draftYear", draftYear)
+                .param("draftPick", draftPick)
                 .update();
     }
 
@@ -54,12 +63,21 @@ public class PlayerRepository {
         String playerPosition = player.getPosition();
         Long playerTeamId = player.getTeamId();
 
-        jdbcClient.sql("UPDATE sport_tracker.player SET name = :name, number = :number, position = :position, teamId = :teamId WHERE id = :id")
+        Integer recruitYear = player.getRecruitYear();
+        Integer recruitStars = player.getRecruitStars();
+        Integer draftYear = player.getDraftYear();
+        Integer draftPick = player.getDraftPick();
+
+        jdbcClient.sql("UPDATE sport_tracker.player SET name = :name, number = :number, position = :position, teamId = :teamId, recruitYear = :recruitYear, recruitStars = :recruitStars, draftYear = :draftYear, draftPick = :draftPick WHERE id = :id")
                 .param("id", playerId)
                 .param("name", playerName)
                 .param("number", playerNumber)
                 .param("position", playerPosition)
                 .param("teamId", playerTeamId)
+                .param("recruitYear", recruitYear)
+                .param("recruitStars", recruitStars)
+                .param("draftYear", draftYear)
+                .param("draftPick", draftPick)
                 .update();
     }
 

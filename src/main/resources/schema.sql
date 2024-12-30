@@ -49,7 +49,12 @@ create table if not exists player (
     name varchar(255) not null,
     teamId int,
     position varchar(3) not null,
-    number int
+    number int,
+
+    recruitYear int, # year e.g. 2016
+    recruitStars int, # 0-5
+    draftYear int, # year e.g. 2020, if null player is still in college
+    draftPick int # 1-255, if null and draftYear is not null player went un-drafted.
 );
 
 create table if not exists passingStats (
@@ -100,3 +105,12 @@ create table if not exists receivingStats(
     touchdowns int not null,
     longest int not null
 );
+
+create table if not exists transactions(
+    id int auto_increment primary key,
+    playerId int not null,
+    type varchar(255) not null, # NFL Draft, Trade, FA, Transfer Portal.
+    date date not null,
+    fromTeamId int,
+    toTeamId int
+)

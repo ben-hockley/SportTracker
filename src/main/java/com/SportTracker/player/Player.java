@@ -17,4 +17,9 @@ public class Player {
     private Long teamId;
     private String position; // Positions referred tp by their abbreviations (e.g. QB, RB, WR, TE, OL, DL, LB, CB, S, K, P, ATH)
     private Integer number;
+
+    private Integer recruitYear;
+    private Integer recruitStars;
+    private Integer draftYear;
+    private Integer draftPick;
 }
