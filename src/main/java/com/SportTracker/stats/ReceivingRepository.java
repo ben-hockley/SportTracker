@@ -48,4 +48,11 @@ public class ReceivingRepository {
                 .query(Receiving.class)
                 .list();
     }
+
+    public List<Receiving> findByPlayerId(Long playerId) {
+        return jdbcClient.sql("SELECT * FROM sport_tracker.receivingstats WHERE playerId = :playerId")
+                .param("playerId", playerId)
+                .query(Receiving.class)
+                .list();
+    }
 }

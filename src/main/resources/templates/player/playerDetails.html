@@ -16,7 +16,7 @@
 <body>
 <nav th:replace="fragments/navbar :: navbar"></nav>
 <div class="container text-center">
-    <div class="row">
+    <div class="row border border-dark">
         <div class="col-1 m-auto">
             <a th:href="'/teamDetails/' + ${team.id}"><img th:src="${team.logoUrl}" th:alt="${team.name} + '\'s logo'" class="w-100"></a>
         </div>
@@ -29,6 +29,78 @@
         <div class="col-3 m-auto">
             <a th:href="'/editPlayer/' + ${player.id}" class="btn btn-primary">Edit Player</a>
             <a th:href="'/deletePlayer/' + ${player.id}" class="btn btn-danger">Delete Player</a>
+        </div>
+    </div>
+    <div class="row text-start">
+        <div class="col-6">
+            <h4>Recent Games</h4>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Date</th> <!-- COL 1 -->
+                    <th>Opponent</th> <!-- COL 2 -->
+                    <th>Result</th> <!-- COL 3 -->
+                    <th>Score</th> <!-- COL 4 -->
+
+                    <!-- COL 5 -->
+                    <th th:if="${player.position == 'QB'}">C-A</th>
+                    <th th:if="${player.position == 'RB'}">Att</th>
+                    <th th:if="${player.position == 'WR' || player.position == 'TE'}">Rec</th>
+
+                    <!-- COL 6 -->
+                    <th th:if="${player.position == 'QB' || player.position == 'RB' || player.position == 'WR' || player.position == 'TE'}">Yds</th>
+
+                    <!-- COL 7 -->
+                    <th th:if="${player.position == 'QB' || player.position == 'RB' || player.position == 'WR' || player.position == 'TE'}">TD</th>
+
+                    <!-- COL 8 -->
+                    <th th:if="${player.position == 'QB'}">INT</th>
+                    <th th:if="${player.position == 'RB' || player.position == 'WR' || player.position == 'TE'}">LNG</th>
+                <tr>
+                </thead>
+                <tbody>
+                <tr th:each="game : ${games}">
+                    <td th:text="${game.date}"></td> <!-- COL 1 -->
+                    <td th:text="${game.homeTeam.id == team.id} ? ${game.awayTeam.name} : ${game.homeTeam.name}"></td> <!-- COL 2 -->
+
+                    <!-- COL 3 -->
+                    <td class="text-center">
+                        <span th:if="${game.homeTeam.id == team.id}">
+                            <span th:if="${game.homeTeamScore > game.awayTeamScore}" class="text-success fw-bold">W</span>
+                            <span th:if="${game.homeTeamScore < game.awayTeamScore}" class="text-danger fw-bold">L</span>
+                            <span th:if="${game.homeTeamScore == game.awayTeamScore}" class="text-warning fw-bold">D</span>
+                        </span>
+                        <span th:if="${game.awayTeam.id == team.id}">
+                            <span th:if="${game.homeTeamScore < game.awayTeamScore}" class="text-success fw-bold">W</span>
+                            <span th:if="${game.homeTeamScore > game.awayTeamScore}" class="text-danger fw-bold">L</span>
+                            <span th:if="${game.homeTeamScore == game.awayTeamScore}" class="text-warning fw-bold">D</span>
+                        </span>
+                    </td>
+
+                    <!-- COL 4 -->
+                    <td>
+                        <a th:text="${game.homeTeamScore} + '-' + ${game.awayTeamScore}" th:href="'/gameDetails/' + ${game.id}"></a>
+                    </td>
+
+                    <!-- COL 5 -->
+                    <td th:each="stat : ${stats}" th:if="${stat.gameId == game.id}">
+                        <span th:if="${player.position == 'QB'}" th:text="${stat.completions} + '-' + ${stat.attempts}"></span>
+                        <span th:if="${player.position == 'RB'}" th:text="${stat.attempts}"></span>
+                        <span th:if="${player.position == 'WR' || player.position == 'TE'}" th:text="${stat.receptions}"></span>
+                    </td>
+                    <!-- COL 6 -->
+                    <td th:each="stat : ${stats}" th:if="${stat.gameId == game.id}" th:text="${stat.yards}"></td>
+
+                    <!-- COL 7 -->
+                    <td th:each="stat : ${stats}" th:if="${stat.gameId == game.id}" th:text="${stat.touchdowns}"></td>
+
+                    <!-- COL 8 -->
+                    <td th:each="stat : ${stats}" th:if="${stat.gameId == game.id}">
+                        <span th:if="${player.position == 'QB'}" th:text="${stat.interceptions}"></span>
+                        <span th:if="${player.position == 'RB' || player.position == 'WR' || player.position == 'TE'}" th:text="${stat.longest}"></span>
+                    </td>
+                </tbody>
+            </table>
         </div>
     </div>
 </div>

@@ -315,4 +315,22 @@ public class GameRepository {
         }
         return gamesWithTeams;
     }
+
+    public List<GameWithTeams> findGameWithTeamsByTeamId(Long teamId) {
+        List<Game> games = findByTeamId(teamId);
+
+        List<GameWithTeams> gamesWithTeams = new ArrayList<>();
+        for (Game game : games) {
+            Team homeTeam = jdbcClient.sql("SELECT * FROM sport_tracker.team WHERE id = :id")
+                    .param("id", game.getHomeTeamId())
+                    .query(Team.class)
+                    .single();
+            Team awayTeam = jdbcClient.sql("SELECT * FROM sport_tracker.team WHERE id = :id")
+                    .param("id", game.getAwayTeamId())
+                    .query(Team.class)
+                    .single();
+            gamesWithTeams.add(new GameWithTeams(game, homeTeam, awayTeam));
+        }
+        return gamesWithTeams;
+    }
 }

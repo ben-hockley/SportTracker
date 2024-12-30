@@ -50,4 +50,11 @@ public class PassingRepository {
                 .list();
     }
 
+    public List<Passing> findByPlayerId(Long playerId) {
+        return jdbcClient.sql("SELECT * FROM sport_tracker.passingstats WHERE playerId = :playerId")
+                .param("playerId", playerId)
+                .query(Passing.class)
+                .list();
+    }
+
 }

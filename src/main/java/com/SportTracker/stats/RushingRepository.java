@@ -48,4 +48,11 @@ public class RushingRepository {
                 .query(Rushing.class)
                 .list();
     }
+
+    public List<Rushing> findByPlayerId(Long playerId) {
+        return jdbcClient.sql("SELECT * FROM sport_tracker.rushingstats WHERE playerId = :playerId")
+                .param("playerId", playerId)
+                .query(Rushing.class)
+                .list();
+    }
 }

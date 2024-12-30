@@ -1,7 +1,13 @@
 package com.SportTracker.player;
 
+import com.SportTracker.game.Game;
+import com.SportTracker.game.GameRepository;
+import com.SportTracker.game.GameWithTeams;
 import com.SportTracker.league.League;
 import com.SportTracker.league.LeagueRepository;
+import com.SportTracker.stats.PassingRepository;
+import com.SportTracker.stats.ReceivingRepository;
+import com.SportTracker.stats.RushingRepository;
 import com.SportTracker.team.Team;
 import com.SportTracker.team.TeamRepository;
 import org.springframework.stereotype.Controller;
@@ -18,11 +24,19 @@ public class PlayerController {
     private final PlayerRepository playerRepository;
     private final TeamRepository teamRepository;
     private final LeagueRepository leagueRepository;
+    private final GameRepository gameRepository;
+    private final PassingRepository passingRepository;
+    private final RushingRepository rushingRepository;
+    private final ReceivingRepository receivingRepository;
 
-    public PlayerController(PlayerRepository playerRepository, TeamRepository teamRepository, LeagueRepository leagueRepository) {
+    public PlayerController(PlayerRepository playerRepository, TeamRepository teamRepository, LeagueRepository leagueRepository, GameRepository gameRepository, PassingRepository passingRepository, RushingRepository rushingRepository, ReceivingRepository receivingRepository) {
         this.playerRepository = playerRepository;
         this.teamRepository = teamRepository;
         this.leagueRepository = leagueRepository;
+        this.gameRepository = gameRepository;
+        this.passingRepository = passingRepository;
+        this.rushingRepository = rushingRepository;
+        this.receivingRepository = receivingRepository;
     }
 
     @GetMapping("/allPlayers")
@@ -67,12 +81,25 @@ public class PlayerController {
         // Get the team for the player
         Team team = teamRepository.findById(player.getTeamId());
         League league = leagueRepository.findById(team.getLeagueId());
+
+        List<GameWithTeams> games = gameRepository.findGameWithTeamsByTeamId(team.getId());
+        // sort the games by date, most recent games first.
+        games.sort((g1, g2) -> g2.getDate().compareTo(g1.getDate()));
+
+        System.out.println("Player position: " + player.getPosition());
+
+        if (player.getPosition().equals("QB")) {
+            model.addAttribute("stats", passingRepository.findByPlayerId(player.getId()));
+        } else if (player.getPosition().equals("RB")) {
+            model.addAttribute("stats", rushingRepository.findByPlayerId(player.getId()));
+        } else if (player.getPosition().equals("WR")) {
+            model.addAttribute("stats", receivingRepository.findByPlayerId(player.getId()));
+        }
+
+        model.addAttribute("games", games);
         model.addAttribute("player", player);
         model.addAttribute("team", team);
         model.addAttribute("league", league);
-
-
-
         return "/player/playerDetails";
     }
 
